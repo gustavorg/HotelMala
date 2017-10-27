@@ -21,7 +21,8 @@ class Rent_model extends MY_Controller {
 
 	public function selectRoomTypesBusy()
 	{
-		$query =  $this->db->query("SELECT * FROM rent 
+		$query =  $this->db->query("SELECT customer.Apellidos , customer.Nombre , customer.DNI, rent.ID_Rent ,  rent.DateFrom , room.ID_Room , roomtype.RoomType, rent.ID_Rent  
+									FROM rent 
 									INNER JOIN customer ON customer.DNI = rent.ID_Customer
 									INNER JOIN room ON room.ID_Room = rent.ID_Room
 									INNER JOIN roomtype ON roomtype.ID_RoomType = room.ID_RoomType" );

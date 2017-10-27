@@ -22,7 +22,7 @@
                   </div>
                   <div class="x_content">
                     <div class='table-responsive'>
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="datatable-rent" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead style='background:white;'>
                         <tr>
                           <th>Apellidos y Nombres</th>
@@ -237,31 +237,65 @@ faltan();
 
 function listarTableRent(){
   // Mostar en la tabla la lista de cuartos en uso
+  
+   var rents = []; var jsonString = "";
   $.ajax({
           url: "<?php echo base_url('Rent/listRoomBusy'); ?>",
           type: "get",
           success: function (response) {
               var i = 0;
-             for(i;i<= response.length - 1; i++){
-              $('#datatable-responsive').append('<tr style="background-color:white;">'+
-                                            '<td>'+ response[i].Apellidos +' '+response[i].Nombre+'</td>'+
-                                            '<td>'+ response[i].DNI +'</td>'+
-                                            '<td>'+ response[i].ID_Room +'</td>'+
-                                            '<td>'+ response[i].RoomType +'</td>'+
-                                            '</tr>');
+             for(i;i< response.length; i++){
+              rents.push({ "Nom" :  response[i].Apellidos +' '+response[i].Nombre,
+                           "DNI" :  response[i].DNI,
+                           "ID_Room" : response[i].ID_Room, 
+                           "RoomType":  response[i].RoomType,
+                           "DateFrom": response[i].DateFrom,
+                           "ID_Rent" : response[i].ID_Rent });
               }
+
+              $( "#datatable-rent" ).DataTable({
+                "data" : rents,
+                "columns": [
+                { "data": "Nom" },
+                { "data": "DNI" },
+                { "data": "ID_Room" },
+                { "data": "RoomType" },
+                { "data": "DateFrom" },
+                { "data": "ID_Rent" }
+              ],
+              "language": {
+                    "lengthMenu": "Vista _MENU_ alquileres",
+                    "zeroRecords": "No existe alquiler registrado con esos caracteres",
+                    "info": "Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No se registró",
+                    "infoFiltered": "( from _MAX_ total records)",
+                    "search":         "Buscar:",
+                    "paginate": { 
+                                "first":      "Primero",
+                                "last":       "Último",
+                                "next":       "Siguiente",
+                                "previous":   "Anterior"
+                                }
+                },
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+                
+              });
           },
           error: function(jqXHR, textStatus, errorThrown) {
               console.log(textStatus, errorThrown);
           }
   });
+
+
+
 }
-$( "#datatable-responsive" ).load(listarTableRent());
+
 
 
 
 $(document).ready(function(){
-
+  
+  listarTableRent();
   // Mostar lista de Cuartos Habilitados
   $.ajax({
           url: "<?php echo base_url('Rent/listRoomAvailables'); ?>",
