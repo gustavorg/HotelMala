@@ -8,50 +8,52 @@ class Login extends MY_Controller {
         session_start(); 
     }
 
-    public function index(){
+    public function index($error = ""){
         
         if(isset($_SESSION['ID_User'])){
-            $data['content_view'] = 'home/Home';
-            $this->template->sample_template($data);
+           redirect('Home');
         }else{
-            $this->load->view('index');
+            $this->load->view('index',$error);
         }
-        //$data['content_view'] = 'Login/index';
+        //
        // $this->template->sample_template($data);
     }
 
     public function validate(){
-       
-        $user = $this->input->post('user');
+        $user = $this->input->post('username');
         $pwd = $this->input->post('password');
         $result1= $this->Validate->verificarUser($user);
-        $response = array();
         if($result1){
             $result2= $this->Validate->verificar($user,$pwd);
             if($result2){
                 foreach($result2 as $row)
                 {         
                     $_SESSION['ID_User'] = $row->ID_User;
+                    $_SESSION['ID_UserType'] = $row->ID_UserType;
+                    $_SESSION['Image'] = $row->Image;
                     $_SESSION['FirstName'] = $row->FirstName;
                     $_SESSION['LastName'] = $row->LastName;
                 }
-                 $response = array('val' => 'true');
+                $error = "";
             }else{
-                $response = array('val' => 'Error en el password. Por favor, escriba correctamente');
+                $error = 'Error en la clave. Por favor, escriba correctamente';
             }
         }else{
-            $response = array('val' => 'Este usuario no existe. Por favor, escriba correctamente');
+            $error = 'Este usuario no existe. Por favor, escriba correctamente';
         }
+        
+        $this->index($error);
        
-            header('Content-Type: application/json');
-            echo json_encode($response);
+            //header('Content-Type: application/json');
+           // echo json_encode($response);
 
     }
 
     public function logout(){
            session_unset();
            $response = array('ID_User' => false);
-           echo json_encode($response);
+           //echo json_encode($response);
+           redirect('Login');
     }
 }
 

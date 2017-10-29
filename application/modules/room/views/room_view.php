@@ -3,27 +3,18 @@
           	z-index: 995;	position: absolute;text-align: -webkit-center;display:none;'>
             <img src="<?php echo base_url('resources/img/preloader.gif'); ?>" width="70px" height="70px">
           </div> -->
-<div class="" id="sinpreloader">
-            <div class='row'>
-              <div class="col-md-6 text-left">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Lista de Habitaciones</button>
-              </div>
-              <div class="col-md-6 text-right">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" v-on="click: clear">Nuevo Alquiler</button>                               
-              </div>
-            </div>
-            <br />
+          <div class="" id="sinpreloader">
+          <button type="button" style='left: 214px;' class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" >Nueva Habitación</button>                               
                   <div class="x_content">
                     <div class='table-responsive'>
                     <table class="table dt-responsive nowrap datatable-rent" cellspacing="0" width="100%">
                       <thead style='background:white;'>
                         <tr>
-                          <th>Apellidos y Nombres</th>
-                          <th>DNI</th>
                           <th>Habitación</th>
-                          <th>Tipo</th>
-                          <th>Dias / Horas</th>
-                          <th>Pago</th>
+                          <th>Hotel</th>
+                          <th>Precio - Dia</th>
+                          <th>Precio - Hora</th>
+                          <th>Precio - Exceso</th>
                         </tr>
                       </thead>
                       <tbody style='background-color:white'>

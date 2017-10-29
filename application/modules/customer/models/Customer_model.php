@@ -19,6 +19,20 @@ class Customer_model extends MY_Controller {
         }
 	}
 
+	public function selectDNI($DNI)
+	{
+		$query =  $this->db->query("SELECT Apellidos,Nombre FROM customer WHERE DNI = ".$DNI );
+		
+		if($query->num_rows() >= 1)
+		{
+			return $query->result();
+
+		}else
+        {
+            return false;
+        }
+	}
+
 	public function saveCustomer($DNI,$Apellido,$Nombre)
 	{
 		$data = array(

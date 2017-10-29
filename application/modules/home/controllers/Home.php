@@ -8,7 +8,15 @@ class Home extends MY_Controller {
     }
 
     public function index(){
-        $data['content_view'] = 'home/Home';
+        $data = array();
+        if(isset($_SESSION['ID_UserType'])){
+            if($_SESSION['ID_UserType'] == 1){
+            $data['content_view'] = 'home/Home';
+            }else{
+            $data['content_view'] = 'home/Home_Admin';
+            }
+        }
+     
 
         $this->template->sample_template($data);
     }
