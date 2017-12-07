@@ -12,7 +12,7 @@ class Rent extends MY_Controller {
     }
 
     public function index(){
-        $data['content_view'] = 'Rent/rent_view';
+        $data['content_view'] = 'rent/rent_view';
         $_SESSION['menu'] = 'Registro';
         $this->template->sample_template($data);
     }

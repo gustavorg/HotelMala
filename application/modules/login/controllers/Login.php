@@ -11,7 +11,7 @@ class Login extends MY_Controller {
     public function index($error = ""){
         
         if(isset($_SESSION['ID_User'])){
-           redirect('Home');
+           redirect('home');
         }else{
             $this->load->view('index',$error);
         }
@@ -54,7 +54,7 @@ class Login extends MY_Controller {
            session_unset();
            $response = array('ID_User' => false);
            //echo json_encode($response);
-           redirect('Login');
+           redirect('login');
     }
 }
 

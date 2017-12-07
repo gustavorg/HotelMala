@@ -228,7 +228,7 @@ function listUsers(){
   
    var users = []; var jsonString = "";
   $.ajax({
-          url: "<?php echo base_url('User/selectAll'); ?>",
+          url: "<?php echo base_url('user/selectAll'); ?>",
           type: "get",
           success: function (response) {
               var i = 0;
@@ -293,7 +293,7 @@ $('#save').click(function(){
   
     var user = $('#NewUser').serialize();
     $.ajax({
-          url: "<?php echo base_url('User/update'); ?>",
+          url: "<?php echo base_url('user/update'); ?>",
           type: "post",
           data: user ,
           success: function (response) {
@@ -327,12 +327,12 @@ $('#createuser').click(function(){
 });
 
 function editUser(ID_User){
-  alert(ID_User);
+
   $("#myModalLabel2").text("Editar Usuario");
   $('#NewUser #ID_User').val(ID_User);
-  alert($('#NewUser #ID_User').val());
+
   $.ajax({
-          url: "<?php echo base_url('User/select'); ?>" + "/" + ID_User,
+          url: "<?php echo base_url('user/select'); ?>" + "/" + ID_User,
           type: "get",
           success: function (response) {
             $('#NewUser #Username').val(response[0].Username);
@@ -356,7 +356,7 @@ function editUser(ID_User){
 function deleteUser(ID_User){
 
   $.ajax({
-          url: "<?php echo base_url('User/delete'); ?>" + "/" + ID_User,
+          url: "<?php echo base_url('user/delete'); ?>" + "/" + ID_User,
           type: "get",
           success: function (response) {
             if(response){

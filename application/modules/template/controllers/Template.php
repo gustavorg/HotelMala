@@ -9,9 +9,9 @@ class Template extends MY_Controller {
 
     public function sample_template($data = NULL){
         if(isset($_SESSION['ID_User'])){
-            $this->load->view('Template/template',$data);
+            $this->load->view('template/template',$data);
         }else{
-            $this->load->view('Login/index');
+            $this->load->view('login/index');
         }
         
     }

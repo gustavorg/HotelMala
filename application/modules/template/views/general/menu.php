@@ -8,7 +8,7 @@
               </div>
               <div class="profile_info">
                 <h4 style='color:white;'> <?php echo $_SESSION['FirstName']." ". $_SESSION['LastName']  ?></h4>
-                <h5><a href="<?php echo base_url('Login/logout'); ?>"  style='text-decoration: none;' >Cerrar Sesión</a></h5>
+                <h5><a href="<?php echo base_url('login/logout'); ?>"  style='text-decoration: none;' >Cerrar Sesión</a></h5>
               </div>
             </div>
 
@@ -19,11 +19,11 @@
               <div class="menu_section" >
                 <h3>Menú</h3>
                 <ul class="nav side-menu">
-                  <li id='Inicio'><a href="<?php echo base_url('Home'); ?>"><i class="fa fa-home"></i> Inicio </a></li>
-                  <li id='Registro'><a href="<?php echo base_url('Rent'); ?>"><i class="fa fa-list-alt"></i> Registro </a></li>
+                  <li id='Inicio'><a href="<?php echo base_url('home'); ?>"><i class="fa fa-home"></i> Inicio </a></li>
+                  <li id='Registro'><a href="<?php echo base_url('rent'); ?>"><i class="fa fa-list-alt"></i> Registro </a></li>
                   <li id='Usuario' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Usuarios </a></li>
-                  <li id='Habitacion' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>
-                  <li id='Perfil'><a href="<?php echo base_url('User'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>
+                  <li id='Habitacion' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>
+                  <li id='Perfil'><a href="<?php echo base_url('user'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>
                 </ul>
               </div>
             </div>
@@ -37,7 +37,7 @@
         <div class="top_nav">
           <div class="nav_menu hamburgesa" style='display:none';>
             <nav>
-              <img src="resources/img/zalo.png" class="img-circle" style="margin-left: 8px; margin-top: 4px;" width="40px" height="40px" alt=""><span style="margin-left: 7px;"><?php echo $_SESSION['FirstName']." ". $_SESSION['LastName']; ?></span>
+              <img src="resources/img/<?php echo $_SESSION['Image']; ?>" class="img-circle" style="margin-left: 8px; margin-top: 4px;" width="40px" height="40px" alt=""><span style="margin-left: 7px;"><?php echo $_SESSION['FirstName']." ". $_SESSION['LastName']; ?></span>
               <button class="navbar-toggle collapsed" style="border: 1px solid #eeeeee !important;background-color:lightgray !important;" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
                 <span class="icon-bar" style="background-color: white;"></span>
                 <span class="icon-bar" style="background-color: white;"></span>

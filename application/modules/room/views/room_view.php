@@ -112,7 +112,7 @@ function listarTableRoom(){
   
    var rooms = []; var jsonString = "";
   $.ajax({
-          url: "<?php echo base_url('Room/listRoom'); ?>",
+          url: "<?php echo base_url('room/listRoom'); ?>",
           type: "get",
           success: function (response) {
               var i = 0;
@@ -204,7 +204,7 @@ function edit(ID_Room,N,ID_RoomType,PriceDay,PriceHour,ID_Hotel,Caracteristicas)
 
 function delRoom(ID_Room){
   $.ajax({
-          url: "<?php echo base_url('Room/deleteRoom'); ?>" + '/' + ID_Room ,
+          url: "<?php echo base_url('room/deleteRoom'); ?>" + '/' + ID_Room ,
           type: "post",
           success: function (response) {
               if(response){
@@ -227,7 +227,7 @@ $('#cerrar').click(function(){
 $('#save').click(function(){
     var rent = $('#Room').serialize();
     $.ajax({
-          url: "<?php echo base_url('Room/updateRoom'); ?>",
+          url: "<?php echo base_url('room/updateRoom'); ?>",
           type: "post",
           data: rent ,
           success: function (response) {

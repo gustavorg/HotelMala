@@ -12,9 +12,9 @@ class Home extends MY_Controller {
         $_SESSION['menu'] = 'Inicio';
         if(isset($_SESSION['ID_UserType'])){
             if($_SESSION['ID_UserType'] == 2){
-            $data['content_view'] = 'home/Home';
+            $data['content_view'] = 'home/home';
             }else{
-            $data['content_view'] = 'home/Home_Admin';
+            $data['content_view'] = 'home/home_admin';
             }
         }
      

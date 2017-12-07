@@ -18,7 +18,7 @@
                     <table class="table dt-responsive nowrap datatable-rent" cellspacing="0" width="100%">
                       <thead style='background:white;'>
                         <tr>
-                          <th>Apellidos y Nombres</th>
+                          <th>Ap. y Nombres</th>
                           <th>DNI</th>
                           <th>Habitación</th>
                           <th>Tipo</th>
@@ -240,7 +240,7 @@ function listarTableRent(){
   
    var rents = []; var jsonString = "";
   $.ajax({
-          url: "<?php echo base_url('Rent/listRoomBusy'); ?>",
+          url: "<?php echo base_url('rent/listRoomBusy'); ?>",
           type: "get",
           success: function (response) {
               var i = 0;
@@ -317,7 +317,7 @@ $(document).ready(function(){
   $('#save').click(function(){
     var rent = $('#Rent').serialize();
     $.ajax({
-          url: "<?php echo base_url('Rent/saveRent'); ?>",
+          url: "<?php echo base_url('rent/saveRent'); ?>",
           type: "post",
           data: rent ,
           success: function (response) {
@@ -338,7 +338,7 @@ $(document).ready(function(){
   $('#DNI').change(function(){
     var DNI = $('#DNI').val();
     $.ajax({
-          url: "<?php echo base_url('Customer/getNom'); ?>" + '/' + DNI ,
+          url: "<?php echo base_url('customer/getNom'); ?>" + '/' + DNI ,
           type: "post",
           success: function (response) {
               if(response){
@@ -355,7 +355,7 @@ $(document).ready(function(){
 
     // Mostar lista de Tipo de Cuarto
     $.ajax({
-            url: "<?php echo base_url('Rent/listRoomTypes'); ?>"  ,
+            url: "<?php echo base_url('rent/listRoomTypes'); ?>"  ,
             type: "get",
             success: function (response) {
               if(response){
@@ -382,7 +382,7 @@ $(document).ready(function(){
 
   // Mostar lista de Cuartos Habilitados
   $.ajax({
-          url: "<?php echo base_url('Rent/listRoomAvailables'); ?>" + "/" + $('#ID_RoomType').val() ,
+          url: "<?php echo base_url('rent/listRoomAvailables'); ?>" + "/" + $('#ID_RoomType').val() ,
           type: "get",
           success: function (response) {
             if(response){
@@ -394,6 +394,7 @@ $(document).ready(function(){
               $('#ID_Room').html(options);
               $('#blockRoom').show();
             }else{
+              $('#blockRoom').hide();
              mensaje("Atención!","No hay Habitaciones disponibles para este tipo de Habitación","error");
             }
             
