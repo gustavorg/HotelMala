@@ -8,7 +8,7 @@
               </div>
               <div class="profile_info">
                 <h4 style='color:white;'> <?php echo $_SESSION['FirstName']." ". $_SESSION['LastName']  ?></h4>
-                <h5><a href="<?php echo base_url('Login/logout'); ?>" >Cerrar Sesión</a></h5>
+                <h5><a href="<?php echo base_url('Login/logout'); ?>"  style='text-decoration: none;' >Cerrar Sesión</a></h5>
               </div>
             </div>
 
@@ -19,11 +19,11 @@
               <div class="menu_section" >
                 <h3>Menú</h3>
                 <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url('Home'); ?>"><i class="fa fa-home"></i> Inicio </a></li>
-                  <li><a href="<?php echo base_url('Rent'); ?>"><i class="fa fa-list-alt"></i> Registro </a></li>
-                  <li <?php if($_SESSION['ID_UserType'] == 1){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Operarios </a></li>
-                  <li <?php if($_SESSION['ID_UserType'] == 1){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>
-                  <li><a href="<?php echo base_url('User'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>
+                  <li id='Inicio'><a href="<?php echo base_url('Home'); ?>"><i class="fa fa-home"></i> Inicio </a></li>
+                  <li id='Registro'><a href="<?php echo base_url('Rent'); ?>"><i class="fa fa-list-alt"></i> Registro </a></li>
+                  <li id='Usuario' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Usuarios </a></li>
+                  <li id='Habitacion' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>
+                  <li id='Perfil'><a href="<?php echo base_url('User'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>
                 </ul>
               </div>
             </div>
@@ -47,8 +47,8 @@
                 <ul class="nav navbar-nav text-right" >
                 <li><a href="<?php echo base_url('Home'); ?>"><i class="fa fa-home"></i> Inicio </a></li>
                 <li><a href="<?php echo base_url('Rent'); ?>"><i class="fa fa-list-alt"></i> Registro </a></li>
-                <li <?php if($_SESSION['ID_UserType'] == 1){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Operarios </a></li>
-                <li <?php if($_SESSION['ID_UserType'] == 1){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>                <li><a href="<?php echo base_url('User'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>            
+                <li <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Usuarios </a></li>
+                <li <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>                <li><a href="<?php echo base_url('User'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>            
                   <li><a  href="<?php echo base_url('Logint/logout'); ?>" ><i class="fa fa-sign-out"></i>Cerrar Sesión</a></li>
                 </ul>
               </div>
@@ -56,5 +56,8 @@
           </div>
         </div>
         <!-- /top navigation -->
+
+
+
 
    <div class="right_col" role="main" style='height: 611px !important;'>

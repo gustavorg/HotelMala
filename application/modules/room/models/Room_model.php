@@ -6,9 +6,9 @@ class Room_model extends MY_Controller {
 		parent::__construct();
 	}
 
-	public function selectRoomTypesAvailables()
+	public function selectRoomTypesAvailables($ID_RoomType)
 	{
-		$query =  $this->db->query("SELECT * FROM room WHERE ID_StateType = 1" );
+		$query =  $this->db->query("SELECT * FROM room WHERE ID_StateType = 1 AND ID_RoomType = ".$ID_RoomType );
 		
 		if($query->num_rows() >= 1)
 		{
@@ -26,4 +26,69 @@ class Room_model extends MY_Controller {
 		);
 		$this->db->update('room',$data);
 	}
+
+	public function selectAll()
+	{
+		$query =  $this->db->query(" SELECT room.* , hotel.Hotel , roomtype.RoomType
+									 FROM room INNER JOIN hotel ON hotel.ID_Hotel = room.ID_Hotel 
+									 INNER JOIN roomtype ON roomtype.ID_RoomType = room.ID_RoomType ");
+		
+		if($query->num_rows() >= 1){
+			return $query->result();
+		}else{
+            return false;
+        }
+	}
+
+	public function insert($N,$ID_Hotel,$PriceDay,$PriceHour,$PriceExces,$Caracteristicas,$ID_RoomType)
+	{
+		$data = array(
+			"N" => $N,
+			"ID_RoomType" => $ID_RoomType,
+			"ID_Hotel" => $ID_Hotel,
+			"PriceDay" => $PriceDay,
+			"PriceHour" => $PriceHour,
+			"PriceExces" => $PriceExces,
+			"Caracteristicas" => $Caracteristicas
+		  );
+		return  $this->db->insert('room', $data);
+	}
+
+	public function update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHour,$PriceExces,$Caracteristicas,$ID_RoomType)
+	{
+		$data = array(
+			"N" => $N,
+			"ID_RoomType" => $ID_RoomType,
+			"ID_Hotel" => $ID_Hotel,
+			"PriceDay" => $PriceDay,
+			"PriceHour" => $PriceHour,
+			"PriceExces" => $PriceExces,
+			"Caracteristicas" => $Caracteristicas
+		);
+		$this->db->where('ID_Room', $ID_Room);
+		return $this->db->update('room',$data);
+	}
+
+	public function existRoom($N,$ID_Hotel)
+	{
+		$query =  $this->db->query("SELECT * FROM room WHERE N = ".$N." AND ID_Hotel = ".$ID_Hotel );
+		
+		if($query->num_rows() >= 1)
+		{
+			return true;
+		}else
+        {
+            return false;
+        }
+	}
+
+
+	public function delete($ID_Room){
+		$this->db->where('ID_Room', $ID_Room);
+		return $this->db->delete('room');
+	}
+
+
+
+
 }

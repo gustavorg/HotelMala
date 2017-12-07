@@ -30,7 +30,8 @@ class Login extends MY_Controller {
                 {         
                     $_SESSION['ID_User'] = $row->ID_User;
                     $_SESSION['ID_UserType'] = $row->ID_UserType;
-                    $_SESSION['Image'] = $row->Image;
+                    if($row->Image == ""){ $foto = "user.png"; }else{ $foto = $row->Image;}
+                    $_SESSION['Image'] = $foto;
                     $_SESSION['FirstName'] = $row->FirstName;
                     $_SESSION['LastName'] = $row->LastName;
                 }

@@ -3,7 +3,7 @@
       <!-- Custom Theme Scripts -->
       <script src="resources/js/custom.min.js"></script>
       <script src="resources/js/alertify.min.js"></script>
-      
+      <script src="resources/js/pnotify.custom.min.js"></script>
       
       <!-- FastClick -->
       <script src="resources/vendors/fastclick/lib/fastclick.js"></script>
@@ -54,3 +54,61 @@
     <script src="resources/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- jQuery Sparklines -->
     <script src="resources/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <script src="resources/vendors/switchery/dist/switchery.min.js"></script>
+
+    
+
+    
+
+
+<script>
+
+
+
+
+
+	$(document).ready(function() {
+
+      $('#<?php echo $_SESSION["menu"];?>').addClass('active');
+
+/*    $('.maestra').dataTable({
+    stateSave: true,
+        'paging':   true,  
+        'ordering': true,   
+        'responsive': true,
+				'info': false,
+        oLanguage: {
+            sSearch:      'Buscar:',
+            sLengthMenu:  'N° _MENU_ ',
+            info:         '',
+            zeroRecords:  'Nothing found - sorry',
+            infoEmpty:    'No records available',
+        },
+				
+				dom: '<\'html5buttons\'B>lTfgitp',
+        buttons:
+				[
+				 		{extend: 'copy',  className: 'btn-sm', text: '<span title=\'Copiar\'><i  class=\'fa fa-files-o\'></i></span>' },
+            {extend: 'excel', className: 'btn-sm', text: '<span title=\'Excel\'><i class=\'fa fa-file-excel-o\'></i></span>'},
+            {extend: 'pdf',   className: 'btn-sm', text: '<span title=\'PDF\'><i class=\'fa fa-file-pdf-o\'></i></span>'},
+            {extend: 'print', className: 'btn-sm', text: '<span title=\'Imprimir\'><i class=\'fa fa-print\'></i></span>'  }	
+				
+        ]
+    	});*/
+		})	
+
+
+ // Mensajes de crear, editar y eliminar
+    function mensaje(titulo,mensaje,tipo){
+        new PNotify({
+            title: titulo,
+            text: mensaje,
+            type: tipo,
+            styling: 'bootstrap3'
+      });
+    }
+
+
+</script>
+
+

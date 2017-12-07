@@ -13,6 +13,7 @@ class Rent extends MY_Controller {
 
     public function index(){
         $data['content_view'] = 'Rent/rent_view';
+        $_SESSION['menu'] = 'Registro';
         $this->template->sample_template($data);
     }
 
@@ -24,10 +25,10 @@ class Rent extends MY_Controller {
 		echo json_encode($response);
     }
 
-    public function listRoomAvailables()
+    public function listRoomAvailables($ID_RoomType)
 	{
 		$response = array();
-		$response = $this->Room_model->selectRoomTypesAvailables();
+		$response = $this->Room_model->selectRoomTypesAvailables($ID_RoomType);
 		header('Content-Type: application/json');
 		echo json_encode($response);
     }

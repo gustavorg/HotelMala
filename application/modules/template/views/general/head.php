@@ -8,10 +8,8 @@
         <link href="resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="resources/css/custom.min.css" rel="stylesheet">
         <link href="resources/css/estilo.css" rel="stylesheet">
-        <link href="resources/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-        <link href="resources/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-        <link href="resources/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
-
+        <link href="resources/css/pnotify.custom.min.css" rel="stylesheet">
+        
 
             <!-- NProgress -->
             <link href="resources/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -24,6 +22,6 @@
             <link href="resources/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
             <link href="resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
             <link href="resources/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
+            <link href="resources/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
             
     </head>

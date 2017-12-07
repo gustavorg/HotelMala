@@ -8,8 +8,8 @@
               <div class="col-md-6 text-left">
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Lista de Habitaciones</button>
               </div>
-              <div class="col-md-6 text-right">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" v-on="click: clear">Nuevo Alquiler</button>                               
+              <div class="col-md-6 text-right" <?php if($_SESSION['ID_UserType'] == 1){ echo "style='display:none;'"; } ?> >
+                  <button type="button" class="btn btn-primary" onclick="newRent()" >Nuevo Alquiler</button>                               
               </div>
             </div>
             <br />
@@ -69,6 +69,16 @@
                                  </div>
                                </fieldset>
                                <fieldset>
+                                 <div class='form-group'>
+                                   <label class='control-label col-md-3 col-sm-3 col-xs-12'>Tipos</label>
+                                   <div class='col-md-9 col-sm-9 col-xs-12'>
+                                     <select class='form-control' id='ID_RoomType' name='ID_RoomType'  >
+                                       <option value='0' >--Seleccione--</option>
+                                     </select>
+                                   </div>
+                                 </div>
+                               </fieldset>
+                               <fieldset id='blockRoom'>
                                  <div class='form-group'>
                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Cuarto</label>
                                    <div class='col-md-9 col-sm-9 col-xs-12'>
@@ -237,10 +247,10 @@ function listarTableRent(){
              for(i;i< response.length; i++){
               rents.push({ "Nom" :  response[i].Apellidos +' '+response[i].Nombre,
                            "DNI" :  response[i].DNI,
-                           "ID_Room" : response[i].ID_Room, 
+                           "ID_Room" : response[i].N, 
                            "RoomType":  response[i].RoomType,
                            "DateFrom": response[i].DateFrom,
-                           "ID_Rent" : response[i].ID_Rent });
+                           "Price" : response[i].PriceDay });
               }
 
               $( ".datatable-rent" ).DataTable({
@@ -251,7 +261,7 @@ function listarTableRent(){
                 { "data": "ID_Room" },
                 { "data": "RoomType" },
                 { "data": "DateFrom" },
-                { "data": "ID_Rent" }
+                { "data": "Price" }
               ],
               "language": {
                     "lengthMenu": "Vista _MENU_ alquileres",
@@ -295,23 +305,13 @@ function clearNewRent(){
 $(document).ready(function(){
   
   listarTableRent();
-  // Mostar lista de Cuartos Habilitados
-  $.ajax({
-          url: "<?php echo base_url('Rent/listRoomAvailables'); ?>",
-          type: "get",
-          success: function (response) {
-              var i = 0;var options = "";
-              options = options + "<option value=0>-- Seleccione --</option>";
-             for(i;i<= response.length - 1; i++){
-                options = options + "<option value="+response[i].ID_Room+">"+ response[i].ID_Room +"</option>";
-              }
-            $('#ID_Room').html(options);
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-              console.log(textStatus, errorThrown);
-          }
-  });
+
 });
+
+
+
+
+
 
 
   $('#save').click(function(){
@@ -348,6 +348,63 @@ $(document).ready(function(){
           }
       });
   });
+
+  function newRent(){
+    $('#newRent').modal("show");
+    $('#blockRoom').hide();
+
+    // Mostar lista de Tipo de Cuarto
+    $.ajax({
+            url: "<?php echo base_url('Rent/listRoomTypes'); ?>"  ,
+            type: "get",
+            success: function (response) {
+              if(response){
+                var i = 0;var options = "";
+                options = options + "<option value=0>-- Seleccione --</option>";
+              for(i;i<= response.length - 1; i++){
+                  options = options + "<option value="+response[i].ID_RoomType+">"+ response[i].RoomType +"</option>";
+                }
+                $('#ID_RoomType').html(options);
+               
+              }else{
+                
+              }
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+    });
+
+  }
+
+  $('#ID_RoomType').change(function(){
+
+  // Mostar lista de Cuartos Habilitados
+  $.ajax({
+          url: "<?php echo base_url('Rent/listRoomAvailables'); ?>" + "/" + $('#ID_RoomType').val() ,
+          type: "get",
+          success: function (response) {
+            if(response){
+              var i = 0;var options = "";
+              options = options + "<option value=0>-- Seleccione --</option>";
+             for(i;i<= response.length - 1; i++){
+                options = options + "<option value="+response[i].ID_Room+">"+ response[i].N +"</option>";
+              }
+              $('#ID_Room').html(options);
+              $('#blockRoom').show();
+            }else{
+             mensaje("Atención!","No hay Habitaciones disponibles para este tipo de Habitación","error");
+            }
+            
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
+          }
+  });
+
+  });
+
 </script>
 
              
