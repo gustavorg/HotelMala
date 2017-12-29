@@ -34,6 +34,7 @@ class Login extends MY_Controller {
                     $_SESSION['Image'] = $foto;
                     $_SESSION['FirstName'] = $row->FirstName;
                     $_SESSION['LastName'] = $row->LastName;
+                    $_SESSION['ID_Hotel'] = $row->ID_Hotel;
                 }
                 $error = "";
             }else{

@@ -1,34 +1,61 @@
 
-			<!--		<div id='preloader' class='panel-body loader-demo' style='left: 0px;top: 143px;right: 0px;padding: 5% !important;
-          	z-index: 995;	position: absolute;text-align: -webkit-center;display:none;'>
-            <img src="<?php echo base_url('resources/img/preloader.gif'); ?>" width="70px" height="70px">
-          </div> -->
-<div class="" id="sinpreloader">
+<style>
+
+.disabled {
+  pointer-events:none !important; 
+  opacity:0.2 !important;        
+}
+</style>
+<div id='loader' >
             <div class='row'>
+            <div class="clearfix">
+            <div id="reloj" />
               <div class="col-md-6 text-left">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Lista de Habitaciones</button>
+                  <button type="button" class="btn btn-success" onclick="viewListRooms()" >Lista de Habitaciones</button>
               </div>
-              <div class="col-md-6 text-right" <?php if($_SESSION['ID_UserType'] == 1){ echo "style='display:none;'"; } ?> >
+              <div class="col-md-6 text-right" >
                   <button type="button" class="btn btn-primary" onclick="newRent()" >Nuevo Alquiler</button>                               
               </div>
             </div>
             <br />
                   <div class="x_content">
                     <div class='table-responsive'>
+                    <table class="table table-hover" id="table_rent" style='background-color:white;'>
+                      <thead>
+                        <tr>
+                          <th>Apellidos y Nombres</th>
+                          <th>DNI</th>
+                          <th>Hab. - Tipo</th>
+                          <th>Precio</th>
+                          <th style="width:140px;text-align:center"><span class='fa fa-clock-o'></span></th>
+                          <th style="width:20px"></th>
+                          <th style="width:20px"></th>
+                          <th style="width:20px"></th>
+                        </tr>
+                      </thead>
+                      <tbody id="Rents">
+
+                      </tbody>
+                    </table>
+                    <!--
                     <table class="table dt-responsive nowrap datatable-rent" cellspacing="0" width="100%">
                       <thead style='background:white;'>
                         <tr>
-                          <th>Ap. y Nombres</th>
-                          <th>DNI</th>
-                          <th>Habitación</th>
-                          <th>Tipo</th>
-                          <th>Dias / Horas</th>
-                          <th>Pago</th>
+                          <th  style='width:80px;text-align:centerss'><span class='fa fa-user'></span> Apellidos - Nombres</th>
+                          <th style='width:50px;text-align:center'>DNI</th>
+                          <th style='width:30px;text-align:center'>Hab.</th>
+                          <th style='width:30px;text-align:center'>Tipo</th>
+                          <th style='width:30px;text-align:center'><span class='fa fa-calendar'></span> Desde</th>
+                          <th style='width:30px;text-align:center'><span class='fa fa-calendar'></span> Hasta</th>
+                          <th style='width:30px;text-align:center'></th>
+                          <th style='width:20px'>Pago</th>
+                          <th style='width:10px'></th>
+                          <th style='width:10px'></th>
                         </tr>
                       </thead>
                       <tbody style='background-color:white'>
                       </tbody>
-                    </table>
+                    </table> -->
                   </div>
           </div>
 
@@ -69,6 +96,14 @@
                                  </div>
                                </fieldset>
                                <fieldset>
+                                 <div class="form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstname">Celular</label>
+                                   <div class="col-md-9 col-sm-6 col-xs-12">
+                                     <input type="number"  id="Phone" name="Phone" required="required" class="form-control col-md-7 col-xs-12 text-right" data-parsley-id="7"><ul class="parsley-errors-list" id="parsley-id-7"></ul>
+                                   </div>
+                                 </div>
+                               </fieldset>
+                               <fieldset>
                                  <div class='form-group'>
                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Tipos</label>
                                    <div class='col-md-9 col-sm-9 col-xs-12'>
@@ -82,7 +117,7 @@
                                  <div class='form-group'>
                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Cuarto</label>
                                    <div class='col-md-9 col-sm-9 col-xs-12'>
-                                     <select class='form-control' id='ID_Room' name='ID_Room'  >
+                                     <select class='form-control' id='ID_Room' name='ID_Room' >
                                        <option value='0' >--Seleccione--</option>
                                      </select>
                                    </div>
@@ -91,18 +126,19 @@
                                <fieldset>
                                  <div class="text-center">
                                  <label class="radio-inline">
-                                   <input type="radio" name="Temporal" value=0 checked>Días
+                                   <input type="radio" name="Temporal" value=0 >Días
                                  </label>
                                  <label class="radio-inline">
-                                   <input type="radio" name="Temporal" value=1>Horas
+                                   <input type="radio" name="Temporal" value=1 checked>Horas
                                  </label>
                                  </div>
-                               </fieldset>                                  
+                               </fieldset> 
+                               <div id="RentToDays">                                 
                                <fieldset>
                                  <div class='form-group'>
                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Inicio</label>
                                    <div class="col-md-9 col-sm-6 col-xs-12">
-                                    <input type="date"  value="<?php echo date("Y-m-d");?>" class="form-control col-md-7 col-xs-12"  name="DateFrom" >
+                                    <input type="date"  value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>" class="form-control col-md-7 col-xs-12"  name="DateFrom" >
                                    </div>
                                  </div>
                                </fieldset>
@@ -110,23 +146,56 @@
                                  <div class='form-group'>
                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Fin</label>
                                    <div class="col-md-9 col-sm-6 col-xs-12">
-                                   <input type="date" value="<?php echo date("Y-m-d");?>" class="form-control col-md-7 col-xs-12"  name="DateTo" >
+                                   <input type="date"  value="<?php echo date("Y-m-d",strtotime("+2 days"));?>" min="<?php echo date("Y-m-d",strtotime("+2 days"));?>" class="form-control col-md-7 col-xs-12"  name="DateTo" >
                                   </div>
                                  </div>
                                </fieldset>
+                               </div>
                                <fieldset id="RentToHours" style="display:none">
                                  <div class="form-group">
                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Horas</label>
                                      <div class="col-md-5 col-sm-6 col-xs-6 text-right">
-                                       <input type="number" min="0" id='nHoras' name="nHoras"  class="form-control col-md-7 col-xs-12 parsley-success" data-parsley-id="5"><ul class="parsley-errors-list" id="parsley-id-5"></ul>
-                                     </div>
+                                     <select  id='nHoras' name="nHours" class="form-control" >
+                                      <option>--</option>
+                                      <option value="1" >1</option>
+                                      <option value="2" >2</option>
+                                      <?php 
+                                        for($i = 12;$i<= 48;$i=$i+12){
+                                          echo "<option value='".$i."' >".$i."</option>";
+                                        }
+                                      
+                                      ?>
+                                   </select>
+                                    </div>
                                  </div>
                                </fieldset>
-
+                               <fieldset>
+                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Modo Pago</label>
+                                 <div class="col-md-9 col-sm-6 col-xs-6">
+                                  <label class="radio-inline">
+                                    <input type="radio" name="ID_PaymentType" value=0 checked>Efectivo
+                                  </label>
+                                  <label class="radio-inline">
+                                    <input type="radio" name="ID_PaymentType" value=1>VISA
+                                  </label>
+                                 </div>
+                               </fieldset>
+                               <fieldset>
+                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Servicio Comida</label>
+                                 <div class="col-md-3 col-sm-6 col-xs-6">
+                                  <label class="radio-inline">
+                                    <input type="checkbox" name="ServiceFood" value=1 >
+                                  </label>
+                                 </div>
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Precio</label>
+                                 <div class="col-md-3 col-sm-6 col-xs-6">
+                                  <label id="MontoaCobrar"></label>
+                                 </div>
+                               </fieldset>
                              </div>
                            </div>
                            <div class="modal-footer">
-                             <button type="button" class="btn btn-warning" data-dismiss="modal"  >Close</button>
+                             <button type="button" class="btn btn-warning" data-dismiss="modal"  >Cerrar</button>
                              <button type='button' id="save"  class="btn btn-success"  >Guardar</button>
                            </div>
                               <div class="alert alert-danger alert-dismissible fade in" id="errorDNI" style="display:none;" role="alert">
@@ -141,8 +210,8 @@
 
                         </div>
 
-                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog modal-lg">
+                        <div class="modal fade bs-example-modal-sm" id="ViewlistRooms" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-sm">
                             <div class="modal-content">
 
                               <div class="modal-header">
@@ -151,29 +220,10 @@
                                 <h4 class="modal-title" id="myModalLabel2">Lista de Habitaciones</h4>
                               </div>
                               <div class="modal-body">
-                                 <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Apellidos</label>
-                                        <div class="col-md-9 col-sm-6 col-xs-12 text-right">
-                                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12 parsley-success" data-parsley-id="5"><ul class="parsley-errors-list" id="parsley-id-5"></ul>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nombres</label>
-                                      <div class="col-md-9 col-sm-6 col-xs-12">
-                                        <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12 parsley-success" data-parsley-id="7"><ul class="parsley-errors-list" id="parsley-id-7"></ul>
-                                      </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">DNI</label>
-                                      <div class="col-md-9 col-sm-6 col-xs-12">
-                                        <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9">
-                                      </div>
-                                    </div>
+                                <span id="listRooms" ></span>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success">Guardar</button>
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
                               </div>
                             </form>
                             </div>
@@ -182,57 +232,179 @@
 
 
 
-<script src="<?php echo base_url('resources/js/RENIEC.js'); ?>"></script>
+
+                      <div class="modal fade bs-example-modal-sm" id="modalDetailsRent" tabindex="-1" role="dialog" aria-hidden="true" >
+                        <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                              </button>
+                              <h4 class="modal-title" id="myModalLabel2">Detalle del Alquiler : <label id="titleDetails"></label></h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th>Descripción</th>
+                                      <th>Precio</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id='DetailsRent'>
+                                  </tbody>
+                                </table>
+                                <label id='totalprice'></label>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="modal fade bs-example-modal-sm" id="modaladdDetailsRent" tabindex="-1" role="dialog" aria-hidden="true" >
+                        <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                              </button>
+                              <h4 class="modal-title" id="myModalLabel3">Nuevo Consumo : <label id="titleaddDetails"></label></h4>
+                            </div>
+                            <div class="modal-body">
+                            <form id='RentDetail' >
+                              <input type='hidden' name='ID_Rent' id='ID_Rentadd' >
+                                <div class="col-xs-5">
+                                  <!-- required for floating -->
+                                  <!-- Nav tabs -->
+                                  <ul class="nav nav-tabs tabs-left">
+                                    <li class="active"><a href="#alquiler" data-toggle="tab" aria-expanded="false">Alquiler</a>
+                                    </li>
+                                    <li class=""><a href="#otros" data-toggle="tab" aria-expanded="true">Otros</a>
+                                    </li>
+                                  </ul>
+                                </div>
+
+                                <div class="col-xs-7">
+                                  <!-- Tab panes -->
+                                  <div class="tab-content">
+                                    <div class="tab-pane active" id="alquiler">
+                                      <p class="lead">Home tab</p>
+                                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                                        synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                                    </div>
+                                    <div class="tab-pane" id="otros">
+                                      <fieldset>
+                                        <div class="form-group">
+                                          <label for="Info" class="control-label col-md-3 col-sm-3 col-xs-12">Info</label>
+                                          <div class="col-md-9 col-sm-6 col-xs-12">
+                                            <input class="form-control col-md-7 col-xs-12 text-left" type="text" id='Info' name="Info" required>
+                                          </div>
+                                        </div>
+                                      </fieldset>                               
+                                      <fieldset>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Pre.</label>
+                                            <div class="col-md-9 col-sm-6 col-xs-12 text-right">
+                                              <input type="number" step='0.01' id='Price' name="Price"  class="form-control col-md-7 col-xs-12 text-right" required>
+                                            </div>
+                                        </div>
+                                      </fieldset>
+                                    </div>
+                                  </div>
+                                </div>
+
+     <!--
+                              -->
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                              <button type="button" id='newRentDetail' class="btn btn-primary" >Añadir</button>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
 <script>
-// autor ... http://personal-de-jall.webcindario.com
-// contacto ... ja_lopezl@yahoo.es
-// estas dos variables se pueden modificar para
-// adaptarlas a sus necesidades
-//fecha de referencia del contador: fin del año 2008
-var futuro = new Date(2019, 12, 31, 23, 60);
-//actualiza el contador cada 4 segundos ( = 4000 milisegundos)
-var actualiza = 1000;
-// función que calcula y escribe el tiempo en días, horas, minutos y segundos
-// que faltan para la variable futuro
-/*function faltan() {
-    var ahora = new Date();
-    var faltan = futuro - ahora;
-    // si todavís no es futuro
-    if (faltan > 0) {
-        var segundos = Math.round(faltan / 1000);
-        var minutos = Math.floor(segundos / 60);
-        var segundos_s = segundos % 60;
-        var horas = Math.floor(minutos / 60);
-        var minutos_s = minutos % 60;
-        var dias = Math.floor(horas / 24);
-        var horas_s = horas % 24;
-        // escribe los resultados
-        (segundos_s < 10) ? segundos_s = "0" + segundos_s : segundos_s = segundos_s;
-        (minutos_s < 10) ? minutos_s = "0" + minutos_s : minutos_s = minutos_s;
-        (horas_s < 10) ? horas_s = "0" + horas_s : horas_s = horas_s;
-        (dias < 10) ? dias = "0" + dias : dias = dias;
-        var resultado = dias + " dias : " + horas_s + " horas : " + minutos_s + " minutos : " + segundos_s + " segundos";
-        document.getElementById("restante").innerHTML = resultado;
-        //actualiza el contador
-        setTimeout("faltan()", actualiza);
-    }
-    // estamos en el futuro
-    else {
-        document.formulario.reloj.value = "00 dias : 00 horas : 00 minutos : 00 segundos";
-    }
-}
-faltan(); 
-*/
 
 
   $('input[name=Temporal]').click(function(){
-                  if($(this).is(':checked')  && $(this).val() == 1){
+    if($(this).is(':checked')  && $(this).val() == 1){
                     $('#RentToHours').css("display","block");
+                    $('#RentToDays').css("display","none");
                   }else{
                     $('#RentToHours').css("display","none");
+                    $('#RentToDays').css("display","block");
                   }
   });
 
+
+  $(document).ready(function(){
+  
+    $("#loader").append("<img src='<?php echo base_url('resources/img/Cargando.gif'); ?>' id='gif' width='80px' height='80px' style='position:absolute;right:590px;top: 230px;'  />");
+    document.documentElement.classList.add('disabled');
+    listarTableRent();
+
+    listarRoom();
+    
+    $('#RentToHours').css("display","block");
+    $('#RentToDays').css("display","none");
+
+});
+
+
+function countdown(ID_Rent,DateToReal,Busy){
+  //  var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
+
+  var countDownDate = new Date(DateToReal).getTime();
+   
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get todays date and time
+     var now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    
+        // If the count down is finished, write some text 
+        if (distance < 0 || Busy != 1) {
+          clearInterval(x); 
+          if(Busy != 1){
+            $('#rent'+ID_Rent).css("background-color","#616161");
+            $('#rent'+ID_Rent).css("color","#e0e0e0");
+            $('#rent'+ID_Rent +" td a").css("color","white");
+            document.getElementById("time"+ID_Rent).innerHTML = "";
+          }else{
+            $('#rent'+ID_Rent).css("background-color","#ef5350 ");
+            $('#rent'+ID_Rent).css("color","white");
+            $('#rent'+ID_Rent +" td a").css("color","white");
+            document.getElementById("time"+ID_Rent).innerHTML = "FINALIZADO";
+          }
+        }else{
+              document.getElementById("time"+ID_Rent).innerHTML = days + "d. " + hours + "h:" + minutes + "m:" + seconds + "s";
+        }
+        $('html').removeClass( "disabled" );
+        document.getElementsByTagName('html')[0].style.opacity = 1;
+        $('#gif').remove();
+    }, 1000);
+}
 
 
 function listarTableRent(){
@@ -243,52 +415,68 @@ function listarTableRent(){
           url: "<?php echo base_url('rent/listRoomBusy'); ?>",
           type: "get",
           success: function (response) {
+ 
+            if(response != ""){
               var i = 0;
+             var rents = "";
              for(i;i< response.length; i++){
-              rents.push({ "Nom" :  response[i].Apellidos +' '+response[i].Nombre,
-                           "DNI" :  response[i].DNI,
-                           "ID_Room" : response[i].N, 
-                           "RoomType":  response[i].RoomType,
-                           "DateFrom": response[i].DateFrom,
-                           "Price" : response[i].PriceDay });
-              }
+                // Format de fechas
+                var DateFrom = response[i].DateFrom;
+                var DateTo = response[i].DateTo;
+                var d = DateFrom.split("-");
+                DateFrom = d[2] + "/" + d[1] + "/" + d[0];
 
-              $( ".datatable-rent" ).DataTable({
-                "data" : rents,
-                "columns": [
-                { "data": "Nom" },
-                { "data": "DNI" },
-                { "data": "ID_Room" },
-                { "data": "RoomType" },
-                { "data": "DateFrom" },
-                { "data": "Price" }
-              ],
-              "language": {
-                    "lengthMenu": "Vista _MENU_ alquileres",
-                    "zeroRecords": "No existe alquiler registrado",
-                    "info": "Página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No se registró",
-                    "infoFiltered": "( from _MAX_ total records)",
-                    "search":         "Buscar:",
-                    "paginate": { 
-                                "first":      "Primero",
-                                "last":       "Último",
-                                "next":       "Siguiente",
-                                "previous":   "Anterior"
-                                }
-                },
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-                
-              });
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-              console.log(textStatus, errorThrown);
+                var dd = DateTo.split("-");
+                DateTo = dd[2] + "/" + dd[1] + "/" + dd[0];
+
+                var ocultar = "";
+                if(response[i].Busy == "0"){
+                  ocultar = " style='display:none' ";
+                }
+              rents = rents + "<tr id='rent"+response[i].ID_Rent+"' ><td>"+response[i].Apellidos +' '+response[i].Nombre+"</td><td>"+response[i].DNI+"</td><td>"+response[i].N+" - " +response[i].RoomType +"</td><td>s/"+ response[i].Price+"</td><td class='text-center' id='time"+response[i].ID_Rent+"'>"+countdown(response[i].ID_Rent,response[i].DateToReal,response[i].Busy)+"</td><td ><a href='#' style='text-decoration:none' onclick=\" viewConsume("+ response[i].ID_Rent + ") \" <span class='fa fa-edit' ></span></a></td><td "+ ocultar +" ><a href='#' style='text-decoration:none' onclick=\" addConsume("+ response[i].ID_Rent + ") \" <span class='fa fa-plus' ></span></a></td><td "+ ocultar +" ><a href='#' id='rentEnd"+response[i].ID_Rent+"' style='text-decoration:none'  onclick=\" endRent("+response[i].ID_Rent+","+ response[i].ID_Room + ") \" <span class='fa fa-check-square-o' ></span></a></td></tr>"; 
+             
+             }
+
+             $('#Rents').html(rents);
+          }else{
+            $('html').removeClass( "disabled" );
+            document.getElementsByTagName('html')[0].style.opacity = 1;
+            $('#gif').remove();
           }
+        }
   });
 
-
-
 }
+
+function listarRoom(){
+  
+    $.ajax({
+            url: "<?php echo base_url('room/listRoom'); ?>",
+            type: "get",
+            success: function (response) {
+                var i = 0;
+              var rooms = ""; var type = "";
+              for(i;i< response.length; i++){
+                
+                if(type != response[i].RoomType){
+                  rooms = rooms + "<h2>" + response[i].RoomType + "</h2>";
+                }
+
+                var busy = "danger";
+                if(response[i].ID_StateType == 1){
+                  busy = "default";
+                }
+
+                rooms = rooms + "<span class='label label-"+busy+"' style='padding: 5px;'>"+response[i].N+"</span> ";
+                type =  response[i].RoomType;
+              }
+
+              $('#listRooms').html(rooms);
+            }
+    });
+}
+
+
 
 function clearNewRent(){
   $('#DNI').val("");
@@ -298,20 +486,6 @@ function clearNewRent(){
   $('#DateFrom').val("<?php echo date("Y-m-d");?>");
   $('#DateTo').val("<?php echo date("Y-m-d");?>");
 }
-
-
-
-
-$(document).ready(function(){
-  
-  listarTableRent();
-
-});
-
-
-
-
-
 
 
   $('#save').click(function(){
@@ -327,6 +501,7 @@ $(document).ready(function(){
                 dataTable.destroy(); 
                 listarTableRent();
                 clearNewRent();
+                listarRoom();
               }
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -355,7 +530,7 @@ $(document).ready(function(){
 
     // Mostar lista de Tipo de Cuarto
     $.ajax({
-            url: "<?php echo base_url('rent/listRoomTypes'); ?>"  ,
+            url: "<?php echo base_url('room/listRoomTypes/1'); ?>"  ,
             type: "get",
             success: function (response) {
               if(response){
@@ -366,8 +541,6 @@ $(document).ready(function(){
                 }
                 $('#ID_RoomType').html(options);
                
-              }else{
-                
               }
 
             },
@@ -379,32 +552,132 @@ $(document).ready(function(){
   }
 
   $('#ID_RoomType').change(function(){
+    // Mostar lista de Cuartos Habilitados
+    if($('#ID_RoomType').val() != 0){
 
-  // Mostar lista de Cuartos Habilitados
-  $.ajax({
-          url: "<?php echo base_url('rent/listRoomAvailables'); ?>" + "/" + $('#ID_RoomType').val() ,
-          type: "get",
-          success: function (response) {
-            if(response){
-              var i = 0;var options = "";
-              options = options + "<option value=0>-- Seleccione --</option>";
-             for(i;i<= response.length - 1; i++){
-                options = options + "<option value="+response[i].ID_Room+">"+ response[i].N +"</option>";
+    $.ajax({
+            url: "<?php echo base_url('rent/listRoomAvailables'); ?>" + "/" + $('#ID_RoomType').val() ,
+            type: "get",
+            success: function (response) {
+              if(response){
+                var i = 0;var options = "";
+                options = options + "<option value=0>-- Seleccione --</option>";
+              for(i;i<= response.length - 1; i++){
+                  options = options + "<option value="+response[i].ID_Room+">"+ response[i].N +"</option>";
+                }
+                $('#ID_Room').html(options);
+                $('#blockRoom').show();
+              }else{
+                $('#blockRoom').hide();
+                mensaje("Atención!","No hay Habitaciones disponibles para este tipo de Habitación","error");
               }
-              $('#ID_Room').html(options);
-              $('#blockRoom').show();
-            }else{
-              $('#blockRoom').hide();
-             mensaje("Atención!","No hay Habitaciones disponibles para este tipo de Habitación","error");
+              
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
             }
-            
+    });
+     
+    }else{
+      $('#blockRoom').hide();
+    }
+  });
+
+  function endRent(ID_Rent,ID_Room){
+    swal({
+      title: 'Esta seguro de dar por finalizado el alquiler?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.value) {
+        swal(
+          'Por favor!',
+          'Limpie la habitación',
+          'success'
+        )
+          
+        $.ajax({
+              url: "<?php echo base_url('rent/updateRentRoom'); ?>" + "/" + ID_Rent + "/" + ID_Room  ,
+              type: "get",
+              success: function (response) {
+                if(response){
+                  window.location.href="<?php echo base_url("rent"); ?>";
+                }
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  console.log(textStatus, errorThrown);
+              }
+      });
+
+      }
+    })
+  }
+
+
+
+  function addConsume(ID_Rent){
+    $('#titleaddDetails').text(ID_Rent);
+    $('#modaladdDetailsRent input').val("");
+    $('#ID_Rentadd').val(ID_Rent);
+    $('#modaladdDetailsRent').modal("show");
+  }
+
+  $('#newRentDetail').click(function(){
+    var rent = $('#RentDetail').serialize();
+    $.ajax({
+          url: "<?php echo base_url('rent/saveRentDetail'); ?>",
+          type: "post",
+          data: rent ,
+          success: function (response) {
+              if(response){
+                var dataTable = $('.datatable-rent').DataTable();
+                dataTable.destroy(); 
+                listarTableRent();
+                clearNewRent();
+                listarRoom();
+                $('#modaladdDetailsRent').modal('hide');
+              }
           },
           error: function(jqXHR, textStatus, errorThrown) {
               console.log(textStatus, errorThrown);
           }
   });
-
   });
+
+  function viewConsume(ID_Rent){
+    $('#titleDetails').text(ID_Rent);
+    $.ajax({
+            url: "<?php echo base_url('rent/listRentDetails'); ?>" + "/" + ID_Rent,
+            type: "get",
+            success: function (response) {
+              if(response){
+                detailsrent = ""; totalprice= 0;
+                for(var i=0;i< response.length; i++){
+                  detailsrent =  detailsrent + "<tr>";
+                  detailsrent = detailsrent + "<td>"+response[i].Info+"</td><td>"+response[i].Price+"</td>";
+                  detailsrent =  detailsrent + "</tr>";
+
+                  totalprice = totalprice + parseFloat(response[i].Price);
+                }
+                $('#totalprice').text("Precio Total : " + totalprice);
+                $('#DetailsRent').html(detailsrent);
+              }
+              
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+    });
+    $('#modalDetailsRent').modal("show");
+  }
+
+
+  function viewListRooms(){
+    $('#ViewlistRooms').modal("show");
+  }
 
 </script>
 

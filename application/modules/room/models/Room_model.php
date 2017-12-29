@@ -8,7 +8,7 @@ class Room_model extends MY_Controller {
 
 	public function selectRoomTypesAvailables($ID_RoomType)
 	{
-		$query =  $this->db->query("SELECT * FROM room WHERE ID_StateType = 1 AND ID_RoomType = ".$ID_RoomType );
+		$query =  $this->db->query("SELECT * FROM room WHERE ID_StateType = 1  AND room.ID_Hotel = ".$_SESSION['ID_Hotel']."  AND ID_RoomType = ".$ID_RoomType );
 		
 		if($query->num_rows() >= 1)
 		{
@@ -29,9 +29,15 @@ class Room_model extends MY_Controller {
 
 	public function selectAll()
 	{
-		$query =  $this->db->query(" SELECT room.* , hotel.Hotel , roomtype.RoomType
+
+
+		$query =  $this->db->query("SELECT room.* , hotel.Hotel , roomtype.RoomType
 									 FROM room INNER JOIN hotel ON hotel.ID_Hotel = room.ID_Hotel 
-									 INNER JOIN roomtype ON roomtype.ID_RoomType = room.ID_RoomType ");
+									 INNER JOIN roomtype ON roomtype.ID_RoomType = room.ID_RoomType
+
+									 WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel']." 
+
+									 ORDER BY roomtype.RoomType");
 		
 		if($query->num_rows() >= 1){
 			return $query->result();
@@ -40,7 +46,7 @@ class Room_model extends MY_Controller {
         }
 	}
 
-	public function insert($N,$ID_Hotel,$PriceDay,$PriceHour,$PriceExces,$Caracteristicas,$ID_RoomType)
+	public function insert($N,$ID_Hotel,$PriceDay,$PriceHour,$PriceDayWeekend,$Caracteristicas,$ID_RoomType)
 	{
 		$data = array(
 			"N" => $N,
@@ -48,13 +54,13 @@ class Room_model extends MY_Controller {
 			"ID_Hotel" => $ID_Hotel,
 			"PriceDay" => $PriceDay,
 			"PriceHour" => $PriceHour,
-			"PriceExces" => $PriceExces,
+			"PriceDayWeekend" => $PriceDayWeekend,
 			"Caracteristicas" => $Caracteristicas
 		  );
 		return  $this->db->insert('room', $data);
 	}
 
-	public function update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHour,$PriceExces,$Caracteristicas,$ID_RoomType)
+	public function update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHour,$PriceDayWeekend,$Caracteristicas,$ID_RoomType)
 	{
 		$data = array(
 			"N" => $N,
@@ -62,7 +68,7 @@ class Room_model extends MY_Controller {
 			"ID_Hotel" => $ID_Hotel,
 			"PriceDay" => $PriceDay,
 			"PriceHour" => $PriceHour,
-			"PriceExces" => $PriceExces,
+			"PriceDayWeekend" => $PriceDayWeekend,
 			"Caracteristicas" => $Caracteristicas
 		);
 		$this->db->where('ID_Room', $ID_Room);
@@ -89,6 +95,36 @@ class Room_model extends MY_Controller {
 	}
 
 
+	public function selectPrice($ID_Room) {
+		
+		 $sql= "SELECT PriceDay , PriceHour , PriceDayWeekend FROM room WHERE ID_Room = ".$ID_Room;
+	   
+			 $result = $this->db->query($sql);
+			   
+		   if(!$result) {
+			 return false;
+			}
+			else {
+				return $result;
+			}
+				  
+								   
+	}
+
+	public function selectAllRoomTypes($rent = "")
+	{
+		if($rent){ $filtro = " WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel']; }else{ $filtro = "";}
+
+		$query =  $this->db->query("SELECT DISTINCT roomtype.ID_RoomType , roomtype.RoomType FROM roomtype INNER JOIN room ON room.ID_RoomType = roomtype.ID_RoomType".$filtro);
+		
+		if($query->num_rows() >= 1)
+		{
+			return $query->result();
+		}else
+        {
+            return array();
+        }
+	}
 
 
 }

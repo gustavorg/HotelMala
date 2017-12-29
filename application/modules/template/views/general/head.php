@@ -23,5 +23,6 @@
             <link href="resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
             <link href="resources/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
             <link href="resources/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-            
+            <link rel='stylesheet' href='resources/css/chartist.css'>
+			
     </head>

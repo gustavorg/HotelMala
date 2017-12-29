@@ -9,10 +9,11 @@
                           <th style='width:30px;text-align: center;'>Habitación</th>
                           <th style='text-align: center;'>Tipo</th>
                           <th style='text-align: center;'>Precio - Dia</th>
-                          <th style='text-align: center;'>Precio - Hora</th>
+                          <th style='text-align: center;'>Precio - Fn. Sem.</th>
+                          <th style='text-align: center;'>Precio - Feriado</th>
                           <th style='text-align: center;'>Hotel</th>
                           <th style='width:20px;text-align: center;'></th>
-                          <th style='width:20px;text-align: center;s'></th>
+                          <th style='width:20px;text-align: center;'></th>
                         </tr>
                       </thead>
                       <tbody style='background-color:white'>
@@ -43,11 +44,6 @@
                                     <div class='col-md-4 col-sm-3 col-xs-12'>
                                       <select class='form-control' id='ID_RoomType' name='ID_RoomType'  >
                                         <option value='0'>------------</option>
-                                        <option value='1'>Simples</option>
-                                        <option value='2'>Matrimonial</option>
-                                        <option value='3'>Dobles</option>
-                                        <option value='4'>Camarotes</option>
-                                        <option value='5'>Queen</option>
                                       </select>
                                     </div>
                                   </div>
@@ -70,9 +66,13 @@
                                 </fieldset>
                                 <fieldset>
                                   <div class='form-group'>
-                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Precio Hora</label>
+                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Precio Fn. Sem.</label>
                                     <div class='col-md-3 col-sm-9 col-xs-12'>
                                       <input type='number' class='form-control text-right' step='0.01' id='PriceHour' name='PriceHour' min='0.01' >
+                                    </div>
+                                    <label class='control-label col-md-3 col-sm-3 col-xs-12'>Precio Feriado</label>
+                                    <div class='col-md-3 col-sm-9 col-xs-12'>
+                                      <input type='number' class='form-control text-right' step='0.01' id='PriceDayWeekend' name='PriceDayWeekend' min='0.01' >
                                     </div>
                                   </div>
                                 </fieldset>
@@ -121,12 +121,14 @@ function listarTableRoom(){
                            "RoomType" :  response[i].RoomType,
                            "PriceDay" : response[i].PriceDay, 
                            "PriceHour":  response[i].PriceHour,
+                           "PriceDayWeekend":  response[i].PriceDayWeekend,
                            "Hotel" : response[i].Hotel,
                            "Edit" : "<a href='#' onclick=\" edit(" + response[i].ID_Room + "," +
                                                                       response[i].N + "," + 
                                                                       response[i].ID_RoomType + "," + 
                                                                       response[i].PriceDay + "," + 
-                                                                      response[i].PriceHour + "," +  
+                                                                      response[i].PriceHour + "," + 
+                                                                      response[i].PriceDayWeekend + "," +  
                                                                       response[i].ID_Hotel + ",'"+
                                                                       response[i].Caracteristicas+"' ) \" <span class='fa fa-pencil' ></span></a>",
                            "Delete": "<a href='#'  onclick=\" delRoom("+ response[i].ID_Room + ") \" <span class='fa fa-trash' ></span></a>" });
@@ -139,6 +141,7 @@ function listarTableRoom(){
                 { "data": "RoomType" },
                 { "data": "PriceDay" },
                 { "data": "PriceHour" },
+                { "data": "PriceDayWeekend" },
                 { "data": "Hotel" },
                 { "data": "Edit" },
                 { "data": "Delete" }
@@ -186,10 +189,32 @@ $(document).ready(function(){
   listarTableRoom();
   $('#titulo').text("Nueva Habitación");
 
+    // Mostar lista de Tipo de Cuarto
+    $.ajax({
+            url: "<?php echo base_url('room/listRoomTypes'); ?>"  ,
+            type: "get",
+            success: function (response) {
+              if(response){
+                var i = 0;var options = "";
+                options = options + "<option value=0>-- Seleccione --</option>";
+              for(i;i<= response.length - 1; i++){
+                  options = options + "<option value="+response[i].ID_RoomType+">"+ response[i].RoomType +"</option>";
+                }
+                $('#ID_RoomType').html(options);
+               
+              }
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+    });
+
+
 });
 
 
-function edit(ID_Room,N,ID_RoomType,PriceDay,PriceHour,ID_Hotel,Caracteristicas){
+function edit(ID_Room,N,ID_RoomType,PriceDay,PriceHour,PriceDayWeekend,ID_Hotel,Caracteristicas){
   
   $('#titulo').text("Editar Habitación");
   $('#ID_Room').val(ID_Room);
@@ -197,6 +222,7 @@ function edit(ID_Room,N,ID_RoomType,PriceDay,PriceHour,ID_Hotel,Caracteristicas)
   $('#PriceDay').val(PriceDay);
   $('#PriceHour').val(PriceHour);
   $('#ID_Hotel').val(ID_Hotel);
+  $('#PriceDayWeekend').val(PriceDayWeekend);
   $('#ID_RoomType').val(ID_RoomType);
   $('#Caracteristicas').val(Caracteristicas);
   $('#newroom').modal('show');

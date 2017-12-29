@@ -56,9 +56,8 @@
     <script src="resources/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <script src="resources/vendors/switchery/dist/switchery.min.js"></script>
 
-    
-
-    
+    <script src="resources/js/chartist.js"></script>
+    <script src="resources/js/sweetalert2.all.js"></script>
 
 
 <script>

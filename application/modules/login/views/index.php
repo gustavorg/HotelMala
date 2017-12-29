@@ -8,7 +8,7 @@
         <link href="resources/css/estilo.css" rel="stylesheet">
 
     </head>
-    <body class="align">
+    <body class="align" style='background-color:#2c3338'>
         <div class="grid" >
             <form method="POST" action="<?php echo base_url('login/validate') ?>" class="form login">
 	

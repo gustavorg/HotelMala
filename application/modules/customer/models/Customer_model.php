@@ -33,12 +33,13 @@ class Customer_model extends MY_Controller {
         }
 	}
 
-	public function saveCustomer($DNI,$Apellido,$Nombre)
+	public function saveCustomer($DNI,$Apellido,$Nombre,$Phone)
 	{
 		$data = array(
 		  "DNI" => $DNI,
 		  "Apellidos" => $Apellido,
-		  "Nombre" => $Nombre
+		  "Nombre" => $Nombre,
+		  "Phone" => $Phone
 		);
 		$this->db->insert('customer', $data);
 	}

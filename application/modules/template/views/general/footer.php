@@ -1,5 +1,5 @@
-        <!-- footer content -->
+        <!-- footer content
         <footer>
-            <div>Sistema Hotel v1.0 - Gustavo Rivero</div>
+            <div class='text-right'>Sistema Hotel v1.0</div>
         </footer>
-        <!-- /footer content -->
+        /footer content -->

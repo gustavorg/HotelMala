@@ -2247,6 +2247,7 @@ pre code {
   font-size: 1rem;
   line-height: 1.25;
   color: #464a4c;
+  height: 27px !important;
   background-color: #fff;
   background-image: none;
   -webkit-background-clip: padding-box;
