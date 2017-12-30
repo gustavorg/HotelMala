@@ -27,7 +27,7 @@
       <script src="resources/vendors/jszip/dist/jszip.min.js"></script>
       <script src="resources/vendors/pdfmake/build/pdfmake.min.js"></script>
       <script src="resources/vendors/pdfmake/build/vfs_fonts.js"></script>
-      <script src="resources/vendors/moment/min/moment.min.js"></script>
+     <script src="resources/vendors/moment/min/moment.min.js"></script> 
       <script src="resources/vendors/raphael/raphael.min.js"></script>
       <script src="resources/vendors/morris.js/morris.min.js"></script>
       <script src="resources/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -58,6 +58,7 @@
 
     <script src="resources/js/chartist.js"></script>
     <script src="resources/js/sweetalert2.all.js"></script>
+    <script src="resources/js/date.js"></script>
 
 
 <script>

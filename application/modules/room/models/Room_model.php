@@ -30,14 +30,14 @@ class Room_model extends MY_Controller {
 	public function selectAll()
 	{
 
+		if($_SESSION['ID_Hotel']){
+			$filtro = "WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel'];
+		}else{ $filtro = "";}
 
 		$query =  $this->db->query("SELECT room.* , hotel.Hotel , roomtype.RoomType
 									 FROM room INNER JOIN hotel ON hotel.ID_Hotel = room.ID_Hotel 
 									 INNER JOIN roomtype ON roomtype.ID_RoomType = room.ID_RoomType
-
-									 WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel']." 
-
-									 ORDER BY roomtype.RoomType");
+									".$filtro." ORDER BY roomtype.RoomType");
 		
 		if($query->num_rows() >= 1){
 			return $query->result();

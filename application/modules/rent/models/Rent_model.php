@@ -10,8 +10,10 @@ class Rent_model extends MY_Controller {
 
 	public function selectRoomTypesBusy()
 	{
-		$filtro = "";
-		//if($_SESSION['ID_UserType'] == 1){ $filtro = "AND DateFrom = ". }
+		if($_SESSION['ID_Hotel']){
+			$filtro = "WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel'];
+		}else{ $filtro = "";}
+
 
 		$query =  $this->db->query("SELECT customer.Apellidos , customer.Nombre , customer.DNI,room.N, rent.ID_Rent ,  
 										    rent.DateTo,rent.Busy, rent.DateToReal, rent.DateFrom , room.ID_Room , roomtype.RoomType, rent.ID_Rent  ,
@@ -21,9 +23,7 @@ class Rent_model extends MY_Controller {
 									INNER JOIN room ON room.ID_Room = rent.ID_Room
 									INNER JOIN roomtype ON roomtype.ID_RoomType = room.ID_RoomType
 									INNER JOIN rentdetail ON rentdetail.ID_Rent = rent.ID_Rent
-
-									WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel']." 
-			
+									".$filtro."
 									GROUP BY customer.Apellidos , customer.Nombre , customer.DNI,room.N, rent.ID_Rent ,  
 									rent.DateTo,rent.Busy, rent.DateToReal, rent.DateFrom , room.ID_Room , roomtype.RoomType, rent.ID_Rent 
 									ORDER BY ID_Rent DESC");

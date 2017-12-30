@@ -126,28 +126,25 @@
                                <fieldset>
                                  <div class="text-center">
                                  <label class="radio-inline">
-                                   <input type="radio" name="Temporal" value=0 >Días
+                                   <input type="radio" name="Temporal" value=0 checked>Días
                                  </label>
                                  <label class="radio-inline">
-                                   <input type="radio" name="Temporal" value=1 checked>Horas
+                                   <input type="radio" name="Temporal" value=1 >Horas
                                  </label>
                                  </div>
                                </fieldset> 
                                <div id="RentToDays">                                 
                                <fieldset>
                                  <div class='form-group'>
-                                   <label class='control-label col-md-3 col-sm-3 col-xs-12'>Inicio</label>
-                                   <div class="col-md-9 col-sm-6 col-xs-12">
-                                    <input type="date"  value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>" class="form-control col-md-7 col-xs-12"  name="DateFrom" >
+                                   <label class='control-label col-md-3 col-sm-3 col-xs-12'>Días</label>
+                                   <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <input type="number"  value="1" min="1" class="form-control text-right" id='Days' name="Days" >
+                                    <input type="hidden" id='DateTo'  name="DateTo" >
                                    </div>
-                                 </div>
-                               </fieldset>
-                               <fieldset>
-                                 <div class='form-group'>
-                                   <label class='control-label col-md-3 col-sm-3 col-xs-12'>Fin</label>
-                                   <div class="col-md-9 col-sm-6 col-xs-12">
-                                   <input type="date"  value="<?php echo date("Y-m-d",strtotime("+2 days"));?>" min="<?php echo date("Y-m-d",strtotime("+2 days"));?>" class="form-control col-md-7 col-xs-12"  name="DateTo" >
-                                  </div>
+                                   <label class='control-label col-md-2 col-sm-3 col-xs-12 text-right'><em class='fa fa-cutlery'></em></label>
+                                   <div class="col-md-1 col-sm-6 col-xs-12">
+                                      <input type="checkbox" name="ServiceFood"   value=1 >
+                                   </div>
                                  </div>
                                </fieldset>
                                </div>
@@ -155,16 +152,10 @@
                                  <div class="form-group">
                                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Horas</label>
                                      <div class="col-md-5 col-sm-6 col-xs-6 text-right">
-                                     <select  id='nHoras' name="nHours" class="form-control" >
+                                     <select  id='nHours' name="nHours" class="form-control" >
                                       <option>--</option>
                                       <option value="1" >1</option>
                                       <option value="2" >2</option>
-                                      <?php 
-                                        for($i = 12;$i<= 48;$i=$i+12){
-                                          echo "<option value='".$i."' >".$i."</option>";
-                                        }
-                                      
-                                      ?>
                                    </select>
                                     </div>
                                  </div>
@@ -181,15 +172,9 @@
                                  </div>
                                </fieldset>
                                <fieldset>
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Servicio Comida</label>
-                                 <div class="col-md-3 col-sm-6 col-xs-6">
-                                  <label class="radio-inline">
-                                    <input type="checkbox" name="ServiceFood" value=1 >
-                                  </label>
-                                 </div>
                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Precio</label>
                                  <div class="col-md-3 col-sm-6 col-xs-6">
-                                  <label id="MontoaCobrar"></label>
+                                  <label id="Price"></label>
                                  </div>
                                </fieldset>
                              </div>
@@ -338,12 +323,14 @@
 
 
   $('input[name=Temporal]').click(function(){
-    if($(this).is(':checked')  && $(this).val() == 1){
+                if($(this).is(':checked')  && $(this).val() == 1){
                     $('#RentToHours').css("display","block");
                     $('#RentToDays').css("display","none");
+                    $( this ).attr( 'checked', 'checked' );
                   }else{
                     $('#RentToHours').css("display","none");
                     $('#RentToDays').css("display","block");
+                    $( this ).attr( 'checked', 'checked' );
                   }
   });
 
@@ -352,12 +339,12 @@
   
     $("#loader").append("<img src='<?php echo base_url('resources/img/Cargando.gif'); ?>' id='gif' width='80px' height='80px' style='position:absolute;right:590px;top: 230px;'  />");
     document.documentElement.classList.add('disabled');
+
     listarTableRent();
 
     listarRoom();
-    
-    $('#RentToHours').css("display","block");
-    $('#RentToDays').css("display","none");
+
+
 
 });
 
@@ -409,16 +396,16 @@ function countdown(ID_Rent,DateToReal,Busy){
 
 function listarTableRent(){
   // Mostar en la tabla la lista de cuartos en uso
-  
    var rents = []; var jsonString = "";
   $.ajax({
           url: "<?php echo base_url('rent/listRoomBusy'); ?>",
           type: "get",
           success: function (response) {
- 
+         
             if(response != ""){
               var i = 0;
              var rents = "";
+
              for(i;i< response.length; i++){
                 // Format de fechas
                 var DateFrom = response[i].DateFrom;
@@ -439,11 +426,17 @@ function listarTableRent(){
 
              $('#Rents').html(rents);
           }else{
+            
             $('html').removeClass( "disabled" );
             document.getElementsByTagName('html')[0].style.opacity = 1;
             $('#gif').remove();
           }
-        }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          $('html').removeClass( "disabled" );
+            document.getElementsByTagName('html')[0].style.opacity = 1;
+            $('#gif').remove();
+      }
   });
 
 }
@@ -678,6 +671,68 @@ function clearNewRent(){
   function viewListRooms(){
     $('#ViewlistRooms').modal("show");
   }
+
+
+
+  $('#ID_Room,#Days,#nHours,input[name=Temporal]').click(function(){
+
+   var ID_Room = $('#ID_Room').val();
+
+    $.ajax({
+            url: "<?php echo base_url('room/listRoom'); ?>",
+            type: "get",
+            success: function (response) {
+                var i = 0;
+             
+              for(i;i< response.length; i++){
+
+                if(response[i].ID_Room == ID_Room){
+                  var Price = 0.00; var PriceBase = 0.00;
+                  var tipo = $("#newRent input[name='Temporal']:checked").val();
+                  if(tipo == "1"){
+                   // alert("Horas");
+                    var Hours = $('#nHours').val();
+                    Price = response[i].PriceDay - 5;
+                    
+                  }else{
+
+                    var date = new Date(); // Now
+                    var hours = date.getHours();
+                    var Days = $('#Days').val();
+                    // condicion saber si es feriado
+
+
+                        if (date.getDay() == 6 || date.getDay() == 7){
+                          PriceBase = response[i].PriceDayWeekend;
+                        }else{
+                          PriceBase = response[i].PriceDay;
+                        }
+      
+                        Price = parseInt(Days) * PriceBase;
+
+
+                        
+                        
+                       date = date.setDate(date.getDate() + parseInt(Days));
+                       date = dateFormat(date, "yyyy-mm-dd");
+                      //  day.replace("/", "-");
+                        if(hours >= 0 && hours < 12){
+                            $('#DateTo').val(date+" 09:00:00"); 
+                        }else{
+                            $('#DateTo').val(date+" 12:00:00"); 
+                        } 
+
+                      //  alert($('#DateTo').val());
+
+                    }
+
+                    $('#Price').text(" S/"+Price);
+                }
+              }
+            }
+    });
+
+  });
 
 </script>
 
