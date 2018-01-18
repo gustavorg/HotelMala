@@ -59,8 +59,9 @@
     <script src="resources/js/chartist.js"></script>
     <script src="resources/js/sweetalert2.all.js"></script>
     <script src="resources/js/date.js"></script>
-
-
+    <script src="resources/js/chartist-plugin-tooltip.js"></script>
+    <script src="resources/js/jspdf.min.js"></script>
+    <script src="resources/js/html2canvas.min.js"></script>
 <script>
 
 
@@ -99,12 +100,22 @@
 
 
  // Mensajes de crear, editar y eliminar
+
+    var stack_topleft = {"dir1": "down", "dir2": "right", "push": "top"};
+var stack_bottomleft = {"dir1": "right", "dir2": "up", "push": "top"};
+var stack_modal = {"dir1": "down", "dir2": "right", "push": "top", "modal": true, "overlay_close": true};
+var stack_bar_top = {"dir1": "down", "dir2": "right", "push": "top", "spacing1": 0, "spacing2": 0};
+var stack_bar_bottom = {"dir1": "up", "dir2": "right", "spacing1": 0, "spacing2": 0};
+var stack_context = {"dir1": "down", "dir2": "left", "context": $("#stack-context")};
+
     function mensaje(titulo,mensaje,tipo){
         new PNotify({
             title: titulo,
             text: mensaje,
             type: tipo,
-            styling: 'bootstrap3'
+            addclass: "stack-bottomright", // This is one of the included default classes.
+            styling: 'bootstrap3',
+            stack: stack_bottomleft
       });
     }
 

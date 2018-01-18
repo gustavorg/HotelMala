@@ -7,6 +7,34 @@ footer{
     width: 100%;
 }
 
+/* COLORES BARRAS */
+.ct-series-a .ct-bar {
+  /* Colour of your bars */
+  stroke:  #be1e2d;
+
+}
+.ct-series-b .ct-bar {
+  /* Colour of your bars */
+  stroke:  #00a79d !important;
+
+}
+/* COLORES LINEAS */
+.ct-series-a .ct-line {
+  /* Set the colour of this series line */
+  stroke: blue !important;
+  /* Control the thikness of your lines */
+  stroke-width: 5px;
+
+}
+
+.ct-series-b .ct-line {
+  /* Set the colour of this series line */
+  stroke: rgba(0, 255, 51, 0.842) !important;
+  /* Control the thikness of your lines */
+  stroke-width: 5px;
+
+}
+
 /* LOGIN */
 .align {
   -webkit-box-align: center;

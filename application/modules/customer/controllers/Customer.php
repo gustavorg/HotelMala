@@ -18,6 +18,14 @@ class Customer extends MY_Controller {
 		header('Content-Type: application/json');
 		echo json_encode($response);
     }
+
+    public function listRequestCustomer()
+	{
+        $response = array();
+        $response = $this->Customer_model->selectAllRequest();  
+		header('Content-Type: application/json');
+		echo json_encode($response);
+    }
     
 }
 

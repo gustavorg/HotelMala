@@ -68,11 +68,11 @@
                                   <div class='form-group'>
                                     <label class='control-label col-md-3 col-sm-3 col-xs-12'>Precio Fn. Sem.</label>
                                     <div class='col-md-3 col-sm-9 col-xs-12'>
-                                      <input type='number' class='form-control text-right' step='0.01' id='PriceHour' name='PriceHour' min='0.01' >
+                                      <input type='number' class='form-control text-right' step='0.01'  min='0.01' id='PriceDayWeekend' name='PriceDayWeekend' >
                                     </div>
                                     <label class='control-label col-md-3 col-sm-3 col-xs-12'>Precio Feriado</label>
                                     <div class='col-md-3 col-sm-9 col-xs-12'>
-                                      <input type='number' class='form-control text-right' step='0.01' id='PriceDayWeekend' name='PriceDayWeekend' min='0.01' >
+                                      <input type='number' class='form-control text-right' step='0.01' id='PriceHoliday' name='PriceHoliday'  min='0.01' >
                                     </div>
                                   </div>
                                 </fieldset>
@@ -112,7 +112,7 @@ function listarTableRoom(){
   
    var rooms = []; var jsonString = "";
   $.ajax({
-          url: "<?php echo base_url('room/listRoom'); ?>",
+          url: "<?php echo base_url('room/listRoom/0'); ?>",
           type: "get",
           success: function (response) {
               var i = 0;
@@ -120,14 +120,14 @@ function listarTableRoom(){
               rooms.push({ "N" :  response[i].N,
                            "RoomType" :  response[i].RoomType,
                            "PriceDay" : response[i].PriceDay, 
-                           "PriceHour":  response[i].PriceHour,
                            "PriceDayWeekend":  response[i].PriceDayWeekend,
+                           "PriceDayHoliday":  response[i].PriceDayHoliday,
                            "Hotel" : response[i].Hotel,
                            "Edit" : "<a href='#' onclick=\" edit(" + response[i].ID_Room + "," +
                                                                       response[i].N + "," + 
                                                                       response[i].ID_RoomType + "," + 
                                                                       response[i].PriceDay + "," + 
-                                                                      response[i].PriceHour + "," + 
+                                                                      response[i].PriceDayHoliday + "," + 
                                                                       response[i].PriceDayWeekend + "," +  
                                                                       response[i].ID_Hotel + ",'"+
                                                                       response[i].Caracteristicas+"' ) \" <span class='fa fa-pencil' ></span></a>",
@@ -140,8 +140,8 @@ function listarTableRoom(){
                 { "data": "N" },
                 { "data": "RoomType" },
                 { "data": "PriceDay" },
-                { "data": "PriceHour" },
                 { "data": "PriceDayWeekend" },
+                { "data": "PriceDayHoliday" },
                 { "data": "Hotel" },
                 { "data": "Edit" },
                 { "data": "Delete" }
@@ -175,7 +175,7 @@ function listarTableRoom(){
 
 function clearNewRoom(){
   $('#PriceDay').val("");
-  $('#PriceHour').val("");
+  $('#PriceHoliday').val("");
   $('#N').val("");
   $('#ID_Hotel').val(0);
   $('#ID_RoomType').val(0);
@@ -214,13 +214,13 @@ $(document).ready(function(){
 });
 
 
-function edit(ID_Room,N,ID_RoomType,PriceDay,PriceHour,PriceDayWeekend,ID_Hotel,Caracteristicas){
+function edit(ID_Room,N,ID_RoomType,PriceDay,PriceHoliday,PriceDayWeekend,ID_Hotel,Caracteristicas){
   
   $('#titulo').text("Editar Habitación");
   $('#ID_Room').val(ID_Room);
   $('#N').val(N);
   $('#PriceDay').val(PriceDay);
-  $('#PriceHour').val(PriceHour);
+  $('#PriceHoliday').val(PriceHoliday);
   $('#ID_Hotel').val(ID_Hotel);
   $('#PriceDayWeekend').val(PriceDayWeekend);
   $('#ID_RoomType').val(ID_RoomType);

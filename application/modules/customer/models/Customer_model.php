@@ -6,9 +6,9 @@ class Customer_model extends MY_Controller {
 		parent::__construct();
 	}
 
-	public function existCustomer($DNI)
+	public function existCustomer($Document)
 	{
-		$query =  $this->db->query("SELECT * FROM customer WHERE DNI = ".$DNI );
+		$query =  $this->db->query("SELECT * FROM customer WHERE Document = ".$Document );
 		
 		if($query->num_rows() >= 1)
 		{
@@ -19,9 +19,11 @@ class Customer_model extends MY_Controller {
         }
 	}
 
+
+
 	public function selectDNI($DNI)
 	{
-		$query =  $this->db->query("SELECT Apellidos,Nombre FROM customer WHERE DNI = ".$DNI );
+		$query =  $this->db->query("SELECT customer.Name FROM customer WHERE Document = ".$DNI );
 		
 		if($query->num_rows() >= 1)
 		{
@@ -33,13 +35,27 @@ class Customer_model extends MY_Controller {
         }
 	}
 
-	public function saveCustomer($DNI,$Apellido,$Nombre,$Phone)
+	public function selectAllRequest()
+	{
+		$query =  $this->db->query("SELECT * FROM requestcustomer ");
+		
+		if($query->num_rows() >= 1)
+		{
+			return $query->result();
+
+		}else
+        {
+            return false;
+        }
+	}
+
+	public function saveCustomer($Document,$DocumentType,$Name,$ID_Request)
 	{
 		$data = array(
-		  "DNI" => $DNI,
-		  "Apellidos" => $Apellido,
-		  "Nombre" => $Nombre,
-		  "Phone" => $Phone
+		  "Document" => $Document,
+		  "DocumentType" => $DocumentType,
+		  "Name" => $Name,
+		  "ID_Request" => $ID_Request
 		);
 		$this->db->insert('customer', $data);
 	}

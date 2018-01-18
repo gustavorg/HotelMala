@@ -4,7 +4,7 @@
     <?php   $this->load->view('general/head');
             $this->load->view('general/scripts');  ?>
 
-    <body class="nav-md" style='background-color:#F7F7F7 !important;' >
+    <body class="nav-md" style='background-color:white !important;' >
     <div class="container body">
         <div class="main_container">
           <?php

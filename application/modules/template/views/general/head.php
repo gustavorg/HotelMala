@@ -24,5 +24,6 @@
             <link href="resources/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
             <link href="resources/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
             <link rel='stylesheet' href='resources/css/chartist.css'>
+            <link rel='stylesheet' href='resources/css/chartist-plugin-tooltip.css'>
 			
     </head>

@@ -2,34 +2,28 @@
 
   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
     <span class="count_top"><i class="fa fa-money"></i> Hoy - Aura</span>
-    <div class="count">2500</div>
-    <span class="count_bottom"><i class="green">4% </i> Ayer </span>
+    <div class="count">s/<?= $HoyAura ?></div>
   </div>
 
   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
     <span class="count_top"><i class="fa fa-money"></i> Hoy - Cris</span>
-    <div class="count">123.50</div>
-    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> Ayer </span>
+    <div class="count">s/<?= $HoyCris ?></div>
   </div>
   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
     <span class="count_top"><i class="fa fa-money"></i> Total Hoy</span>
-    <div class="count green">2,500</div>
-    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> Ayer </span>
+    <div class="count green">s/<?= $HoyTotal ?></div>
   </div>
   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
     <span class="count_top"><i class="fa fa-money"></i> Semanal - Aura</span>
-    <div class="count">4,567</div>
-    <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> Semana Ps.</span>
+    <div class="count">s/<?= $SemanalAura ?></div>
   </div>
   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
     <span class="count_top"><i class="fa fa-money"></i> Semanal - Cris</span>
-    <div class="count">2,315</div>
-    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i>Semana Ps.</span>
+    <div class="count">s/<?= $SemanalCris ?></div>
   </div>
   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
     <span class="count_top"><i class="fa fa-money"></i> Total Semanal</span>
-    <div class="count">7,325</div>
-    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> Semana Ps. </span>
+    <div class="count green">s/<?= $SemanalTotal ?></div>
   </div>
 
 </div>
@@ -38,34 +32,28 @@
 
 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
   <span class="count_top"><i class="fa fa-money"></i> Mensual - Aura</span>
-  <div class="count">2500</div>
-  <span class="count_bottom"><i class="green">4% </i> Mes Pasado </span>
+  <div class="count">s/<?= $MensualAura ?></div>
 </div>
 
 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
   <span class="count_top"><i class="fa fa-money"></i> Mensual - Cris</span>
-  <div class="count">123.50</div>
-  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i>  Mes Pasado </span>
+  <div class="count">s/<?= $MensualCris ?></div>
 </div>
 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
   <span class="count_top"><i class="fa fa-money"></i> Mensual Hoy</span>
-  <div class="count green">2,500</div>
-  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i>  Mes Pasado</span>
+  <div class="count green">s/<?= $MensualTotal ?></div>
 </div>
 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-  <span class="count_top"><i class="fa fa-money"></i> Medio Año - Aura</span>
-  <div class="count">4,567</div>
-  <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> Medio Año Ps. </span>
+  <span class="count_top"><i class="fa fa-money"></i> Anual - Aura</span>
+  <div class="count">s/<?= $AnualAura ?></div>
 </div>
 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-  <span class="count_top"><i class="fa fa-money"></i> Medio Año - Cris</span>
-  <div class="count">2,315</div>
-  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> Medio Año P. </span>
+  <span class="count_top"><i class="fa fa-money"></i> Anual - Cris</span>
+  <div class="count">s/<?= $AnualCris ?></div>
 </div>
 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
   <span class="count_top"><i class="fa fa-money"></i> Anual Total </span>
-  <div class="count">7,325</div>
-  <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> Año Pasado </span>
+  <div class="count green">s/<?= $AnualTotal ?></div>
 </div>
 </div>
 
@@ -76,18 +64,26 @@
   <div class="dashboard_graph">
 
     <div class="row x_title">
-        <h3>Ingresos en el Año Aura - Cris <?php echo $year1; ?></h3>
+        <h3>Ingresos en el Año Aura <em class='fa fa-stop' style='color:red'></em> - Cris <em class='fa fa-stop' style='color:#00a79d'></em>  <?php echo $year1; ?></h3>
     </div>
       <div class="demo-container" style="height:160px">
         <div class="ct-chartYear" ></div>	
       </div>
 
     <div class="row x_title"> 
-      <h3>Comparación de Ingresos Aura - Cris <?php echo $year2."-".$year1; ?></h3>
+      <h3>Comparación de Ingresos Aura  <?php echo $year2." <em class='fa fa-stop' style='color:blue'></em> - ".$year1." <em class='fa fa-stop' style='color:rgba(0, 255, 51, 0.842)'></em>"; ?></h3>
     </div>
 
       <div class="demo-container" style="height:190px">
-        <div class="ct-chartComparation" ></div>	
+        <div class="ct-chartComparation1" ></div>	
+      </div>
+
+      <div class="row x_title"> 
+      <h3>Comparación de Ingresos Cris  <?php echo $year2." <em class='fa fa-stop' style='color:blue'></em> - ".$year1." <em class='fa fa-stop' style='color:rgba(0, 255, 51, 0.842)'></em>"; ?></h3>
+    </div>
+
+      <div class="demo-container" style="height:190px">
+        <div class="ct-chartComparation2" ></div>	
       </div>
   </div>
 
@@ -97,75 +93,30 @@
     <div>
                         <div class="x_title">
                           <h2>Top 5 Clientes</h2>
-                          <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a>
-                                </li>
-                                <li><a href="#">Settings 2</a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                          </ul>
                           <div class="clearfix"></div>
                         </div>
                         <ul class="list-unstyled top_profiles scroll-view">
-                          <li class="media event">
-                            <div class="media-body">
-                              <a class="pull-left border-aero profile_thumb" style='width: 43px;height: 43px;'>
-                                <i class="fa fa-user aero" style='font-size: 22px;'></i>
+                        <?php 
+                          reset($list_customers);
+
+                          foreach($list_customers as $row){
+                          echo "<li class='media event'>
+                            <div class='media-body'>
+                              <a class='pull-left border-aero profile_thumb' style='width: 43px;height: 43px;'>
+                                <i class='fa fa-user aero' style='font-size: 22px;'></i>
                               </a>
-                              <a class="title" href="#">Kevin Lopez</a>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-money"></em> s/ 500.00</p>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-male"></em> 10 </p>
+                              <a class='title' href='#'>".$row->Name."</a>
+                              <p style='margin-top: 0px;font-size: 11px;'><em class='fa fa-money'></em> ".$row->Gasto."</p>
+                              <p style='margin-top: 0px;font-size: 11px;'><em class='fa fa-male'></em> ".$row->Visita."</p>
                             </div>
-                          </li>
-                          <li class="media event">
-                            <div class="media-body">
-                              <a class="pull-left border-aero profile_thumb" style='width: 43px;height: 43px;'>
-                                <i class="fa fa-user aero" style='font-size: 22px;'></i>
-                              </a>
-                              <a class="title" href="#">Mauricio Quispe</a>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-money"></em> s/ 350.00</p>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-male"></em> 5 </p>
-                            </div>
-                          </li>
-                          <li class="media event">
-                            <div class="media-body">
-                              <a class="pull-left border-aero profile_thumb" style='width: 43px;height: 43px;'>
-                                <i class="fa fa-user aero" style='font-size: 22px;'></i>
-                              </a>
-                              <a class="title" href="#">Maria Gutierrez</a>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-money"></em> s/ 240.00</p>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-male"></em> 12 </p>
-                            </div>
-                          </li>
-                          <li class="media event">
-                            <div class="media-body">
-                              <a class="pull-left border-aero profile_thumb" style='width: 43px;height: 43px;'>
-                                <i class="fa fa-user aero" style='font-size: 22px;'></i>
-                              </a>
-                              <a class="title" href="#">Paolo Guerrero</a>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-money"></em> s/ 134.00</p>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-male"></em> 4 </p>
-                            </div>
-                          </li>
-                          <li class="media event">
-                            <div class="media-body">
-                              <a class="pull-left border-aero profile_thumb" style='width: 43px;height: 43px;'>
-                                <i class="fa fa-user aero" style='font-size: 22px;'></i>
-                              </a>
-                              <a class="title" href="#">Keyla Vergara</a>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-money"></em> s/ 100.00</p>
-                              <p style="margin-top: 0px;font-size: 11px;"><em class="fa fa-male"></em> 1 </p>
-                            </div>
-                          </li>
+                          </li>";
+                          }
+                        ?>
                         </ul>
+                      </div>
+
+                      <div class="demo-container" style="height:190px">
+                        <div class="ct-chart-pie" ></div>	
                       </div>
     </div>
 </div>
@@ -176,13 +127,6 @@
 
 // Año Actual
 
-var data = {
-  labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic'],
-    series: [
-    [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
-  ]
-};
 
 var options = {
   seriesBarDistance: 15
@@ -207,26 +151,81 @@ var responsiveOptions = [
   }]
 ];
 
-new Chartist.Bar('.ct-chartYear', data, options, responsiveOptions);
+new Chartist.Bar('.ct-chartYear', {
+                                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic'],
+                                      series: [
+                                      <?php echo $ingresosAura; ?>,
+                                      <?php echo $ingresosCris; ?>
+                                    ]
+                                  },{
+                                    seriesBarDistance: 20,
+                                    axisX: {
+                                        showGrid: false
+                                    },
+                                plugins: [
+                                    Chartist.plugins.tooltip({
+                                        valeTransform: function() {
+                                            return value + 'Offensive Yardage';
+                                        }
+                                    })
+                                ]
+                                  
+                                }, options, responsiveOptions);
 
-// Comparacion Años
 
-  var chart = new Chartist.Line('.ct-chartComparation', {
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-    series: [
-      [5, 5, 10, 8, 7, 5, 4, null, null, null, 10, 10, 7, 8, 6, 9],
-      [10, 15, null, 12, null, 10, 12, 15, null, null, 12, null, 14, null, null, null],
-    ]
-  }, {
-    fullWidth: true,
-    chartPadding: {
-      right: 10
-    },
-    lineSmooth: Chartist.Interpolation.cardinal({
-      fillHoles: true,
-    }),
-    low: 0
-  });
+
+// Comparacion Años Aura
+
+var chart = new Chartist.Line('.ct-chartComparation1', {
+  labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic'],
+  series: [<?php echo $ingresosAuraComparacion; ?>]
+}, {
+  low: 0,
+  showArea: true,
+  showPoint: false,
+  fullWidth: true
+});
+
+chart.on('draw', function(data) {
+  if(data.type === 'line' || data.type === 'area') {
+    data.element.animate({
+      d: {
+        begin: 2000 * data.index,
+        dur: 2000,
+        from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+        to: data.path.clone().stringify(),
+        easing: Chartist.Svg.Easing.easeOutQuint
+      }
+    });
+  }
+});
+
+// Comparacion Años Cris
+
+var chart = new Chartist.Line('.ct-chartComparation2', {
+  labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic'],
+  series: [<?php echo $ingresosCrisComparacion; ?>]
+}, {
+  low: 0,
+  showArea: true,
+  showPoint: false,
+  fullWidth: true
+});
+
+chart.on('draw', function(data) {
+  if(data.type === 'line' || data.type === 'area') {
+    data.element.animate({
+      d: {
+        begin: 2000 * data.index,
+        dur: 2000,
+        from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+        to: data.path.clone().stringify(),
+        easing: Chartist.Svg.Easing.easeOutQuint
+      }
+    });
+  }
+});
+
 
 
 </script>

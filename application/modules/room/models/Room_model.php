@@ -8,7 +8,14 @@ class Room_model extends MY_Controller {
 
 	public function selectRoomTypesAvailables($ID_RoomType)
 	{
-		$query =  $this->db->query("SELECT * FROM room WHERE ID_StateType = 1  AND room.ID_Hotel = ".$_SESSION['ID_Hotel']."  AND ID_RoomType = ".$ID_RoomType );
+
+		if($_SESSION['ID_Hotel']){
+			$filtro = " AND room.ID_Hotel = ".$_SESSION['ID_Hotel'];	
+		}else{ $filtro = ""; }
+
+		$query =  $this->db->query("SELECT room.*,hotel.Hotel FROM room 
+									INNER JOIN hotel ON hotel.ID_Hotel = room.ID_Hotel
+									WHERE ID_StateType = 1  AND  ID_RoomType = ".$ID_RoomType.$filtro );
 		
 		if($query->num_rows() >= 1)
 		{
@@ -27,12 +34,13 @@ class Room_model extends MY_Controller {
 		$this->db->update('room',$data);
 	}
 
-	public function selectAll()
+	public function selectAll($ID_Hotel)
 	{
 
-		if($_SESSION['ID_Hotel']){
+		if($_SESSION['ID_Hotel'] && $ID_Hotel == 0){
 			$filtro = "WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel'];
-		}else{ $filtro = "";}
+		}else if($ID_Hotel != 0){ $filtro = "WHERE room.ID_Hotel =".$ID_Hotel;}
+		else{ $filtro = ""; }
 
 		$query =  $this->db->query("SELECT room.* , hotel.Hotel , roomtype.RoomType
 									 FROM room INNER JOIN hotel ON hotel.ID_Hotel = room.ID_Hotel 
@@ -46,28 +54,28 @@ class Room_model extends MY_Controller {
         }
 	}
 
-	public function insert($N,$ID_Hotel,$PriceDay,$PriceHour,$PriceDayWeekend,$Caracteristicas,$ID_RoomType)
+	public function insert($N,$ID_Hotel,$PriceDay,$PriceHoliday,$PriceDayWeekend,$Caracteristicas,$ID_RoomType)
 	{
 		$data = array(
 			"N" => $N,
 			"ID_RoomType" => $ID_RoomType,
 			"ID_Hotel" => $ID_Hotel,
 			"PriceDay" => $PriceDay,
-			"PriceHour" => $PriceHour,
+			"PriceDayHoliday" => $PriceHoliday,
 			"PriceDayWeekend" => $PriceDayWeekend,
 			"Caracteristicas" => $Caracteristicas
 		  );
 		return  $this->db->insert('room', $data);
 	}
 
-	public function update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHour,$PriceDayWeekend,$Caracteristicas,$ID_RoomType)
+	public function update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHoliday,$PriceDayWeekend,$Caracteristicas,$ID_RoomType)
 	{
 		$data = array(
 			"N" => $N,
 			"ID_RoomType" => $ID_RoomType,
 			"ID_Hotel" => $ID_Hotel,
 			"PriceDay" => $PriceDay,
-			"PriceHour" => $PriceHour,
+			"PriceDayHoliday" => $PriceHoliday,
 			"PriceDayWeekend" => $PriceDayWeekend,
 			"Caracteristicas" => $Caracteristicas
 		);
@@ -115,7 +123,7 @@ class Room_model extends MY_Controller {
 	{
 		if($rent){ $filtro = " WHERE room.ID_Hotel = ".$_SESSION['ID_Hotel']; }else{ $filtro = "";}
 
-		$query =  $this->db->query("SELECT DISTINCT roomtype.ID_RoomType , roomtype.RoomType FROM roomtype INNER JOIN room ON room.ID_RoomType = roomtype.ID_RoomType".$filtro);
+		$query =  $this->db->query("SELECT DISTINCT roomtype.ID_RoomType , roomtype.RoomType FROM roomtype  LEFT OUTER JOIN room ON room.ID_RoomType = roomtype.ID_RoomType".$filtro);
 		
 		if($query->num_rows() >= 1)
 		{

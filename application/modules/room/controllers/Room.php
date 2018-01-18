@@ -14,10 +14,11 @@ class Room extends MY_Controller {
         $this->template->sample_template($data);
     }
 
-    public function listRoom()
+    public function listRoom($ID_Hotel = "")
 	{
+        if($ID_Hotel == ""){ $ID_Hotel = 0; }
 		$response = array();
-		$response = $this->Room_model->selectAll();
+		$response = $this->Room_model->selectAll($ID_Hotel);
 		header('Content-Type: application/json');
 		echo json_encode($response);
     }
@@ -37,17 +38,17 @@ class Room extends MY_Controller {
         $ID_Hotel = $this->input->post('ID_Hotel');
         $ID_RoomType = $this->input->post('ID_RoomType');
         $PriceDay = $this->input->post('PriceDay');
-        $PriceHour = $this->input->post('PriceHour');
+        $PriceHoliday = $this->input->post('PriceHoliday');
         $PriceDayWeekend = $this->input->post('PriceDayWeekend');
         $Caracteristicas = $this->input->post('Caracteristicas');
         // Existe en la tabla cliente ?
         $response = array();
         if($ID_Room == ""){
             if(!$this->Room_model->existRoom($N,$ID_Hotel)){
-                $response = $this->Room_model->insert($N,$ID_Hotel,$PriceDay,$PriceHour,$PriceDayWeekend,$Caracteristicas,$ID_RoomType);
+                $response = $this->Room_model->insert($N,$ID_Hotel,$PriceDay,$PriceHoliday,$PriceDayWeekend,$Caracteristicas,$ID_RoomType);
             }
         }else{
-            $response = $this->Room_model->update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHour,$PriceDayWeekend,$Caracteristicas,$ID_RoomType);
+            $response = $this->Room_model->update($ID_Room,$N,$ID_Hotel,$PriceDay,$PriceHoliday,$PriceDayWeekend,$Caracteristicas,$ID_RoomType);
         } 
 		header('Content-Type: application/json');
 		echo json_encode($response);

@@ -1,4 +1,4 @@
-        <div class="col-md-3 left_col menu_fixed" style="background-color:#2c3338 !important;">
+        <div class="col-md-3 left_col menu_fixed" <?php echo "style='background-color:#ffb300 !important'"; ?> >
           <div class="left_col scroll-view" id='menu'>
             <div class="clearfix"></div>
 
@@ -7,8 +7,8 @@
                 <img src="resources/img/<?php echo $_SESSION['Image']; ?>" class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <h4 style='color:white;'> <?php echo $_SESSION['FirstName']." ". $_SESSION['LastName']  ?></h4>
-                <h5><a href="<?php echo base_url('login/logout'); ?>"  style='text-decoration: none;' >Cerrar Sesión</a></h5>
+                <h4 style='color:black;'><strong> <?php echo $_SESSION['FirstName']." ". $_SESSION['LastName']  ?></strong></h4>
+                <h5><a href="<?php echo base_url('login/logout'); ?>"  style='text-decoration: none;color:white' >Cerrar Sesión</a></h5>
               </div>
             </div>
 
@@ -17,12 +17,12 @@
             <!-- sidebar menu -->
            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section" >
-                <h3>Menú</h3>
+                <h3 style='color:black;' >Menú</h3>
                 <ul class="nav side-menu">
-                  <li id='Inicio'><a href="<?php echo base_url('home'); ?>"><i class="fa fa-home"></i> Inicio </a></li>
-                  <li id='Registro'><a href="<?php echo base_url('rent'); ?>"><i class="fa fa-list-alt"></i> Registro </a></li>
-                  <li id='Usuario' style='display:none' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Usuarios </a></li>
-                  <li id='Habitacion' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>
+                  <li id='Inicio'><a href="<?php echo base_url('home'); ?>" style='color:white;'><i class="fa fa-home"></i> Inicio </a></li>
+                  <li id='Registro'><a href="<?php echo base_url('rent'); ?>" style='color:white;'><i class="fa fa-list-alt"></i> Registro </a></li>
+                  <li id='Usuario' style='display:none;color:black;' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;'"; }  ?>><a href="<?php echo base_url('Users'); ?>"><i class="fa fa-users"></i> Usuarios </a></li>
+                  <li id='Habitacion' <?php if($_SESSION['ID_UserType'] == 2){ echo "style='display:none;color:white;'"; }  ?>><a href="<?php echo base_url('room'); ?>"><i class="fa fa-th-list"></i> Habitaciones </a></li>
                   <li id='Perfil' style='display:none'><a href="<?php echo base_url('user'); ?>"><i class="fa fa-user"></i> Mi Perfil </a></li>
                 </ul>
               </div>
@@ -61,4 +61,4 @@
 
 
 
-   <div class="right_col" role="main" style='height: 611px !important;'>
+   <div class="right_col" role="main" style='height: 611px !important;    background-color: white;'>
